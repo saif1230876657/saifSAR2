@@ -3,348 +3,247 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>منصة الاختبارات - الطالب</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <title>منصة الاختبارات - المستقبل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
-    /* تطبيق box-sizing على جميع العناصر لضمان تناسق الأحجام */
-    *, *::before, *::after {
-      box-sizing: border-box;
+    :root {
+      /* Light Mode */
+      --bg-color: #f0f2f5;
+      --container-bg: rgba(255, 255, 255, 0.85);
+      --text-color: #1c1e21;
+      --header-color: #005a9c;
+      --accent-color: #007bff;
+      --accent-rgb: 0, 123, 255;
+      --accent-glow: rgba(var(--accent-rgb), 0.5);
+      --input-bg: #ffffff;
+      --input-border: #ccd0d5;
+      --item-bg: #ffffff;
+      --item-hover-bg: #f5f5f5;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
     }
+
+    [data-theme="dark"] {
+      /* Dark Mode */
+      --bg-color: #0d1117;
+      --container-bg: rgba(22, 27, 34, 0.8);
+      --text-color: #c9d1d9;
+      --header-color: #58a6ff;
+      --accent-color: #3081f7;
+      --accent-rgb: 48, 129, 247;
+      --accent-glow: rgba(var(--accent-rgb), 0.5);
+      --input-bg: #0d1117;
+      --input-border: #30363d;
+      --item-bg: #161b22;
+      --item-hover-bg: #21262d;
+      --shadow-color: rgba(0, 0, 0, 0.4);
+      --success-color: #3fb950;
+      --warning-color: #e3b341;
+      --danger-color: #f85149;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
 
     body {
       font-family: 'Cairo', sans-serif;
-      background: linear-gradient(135deg, #4CAF50, #2E7D32);
-      color: #fff;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       margin: 0;
-      padding: 0;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       direction: rtl;
-      text-align: right;
-      overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
+      overflow: hidden;
     }
+    
+    body::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 40%),
+                  radial-gradient(circle, var(--header-color) 0%, transparent 50%);
+      background-size: 200% 200%;
+      animation: aurora 20s linear infinite;
+      z-index: -1;
+    }
+    @keyframes aurora { from { background-position: 0% 0%; } to { background-position: -200% -200%; } }
 
     .container {
-      background: #212121;
-      padding: 25px 20px;
-      border-radius: 0;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: none;
-      border: none;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: stretch;
-    }
-
-    h1, h2, h3, h4 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-weight: 700;
-      color: #81C784;
-      font-size: 1.6rem;
-    }
-    h2 { font-size: 1.4rem; }
-    h3 { font-size: 1.2rem; }
-    h4 { font-size: 1.1rem; }
-
-    hr {
-      border-top: 1px dashed #444;
-      margin: 20px 0;
-    }
-
-    input, button, select, textarea {
-      width: 100%;
-      padding: 14px 15px;
-      margin: 8px 0 15px 0;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: 'Cairo', sans-serif;
-    }
-
-    input[type="text"], input[type="password"], select, textarea, input[type="number"] {
-      background: #333;
-      color: #eee;
-      border: 1px solid #555;
-    }
-
-    input::placeholder, textarea::placeholder {
-      color: #bbb;
-    }
-
-    button {
-      background: #4CAF50;
-      color: #fff;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background 0.3s ease, transform 0.2s ease;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
-    button:hover {
-      background: #388E3C;
-      transform: translateY(-2px);
-    }
-
-    button:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-
-    .hidden { display: none; }
-
-    .test-item {
-      background: #333;
-      padding: 15px 20px;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .test-item:hover {
-      background: #444;
-    }
-
-    .result-list {
-      background: #333;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 20px;
-      border: 1px solid #555;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .result-list div {
-      padding: 10px 0;
-      border-bottom: 1px dashed #444;
-    }
-
-    .result-list div:last-child {
-      border-bottom: none;
-    }
-
-    label {
-      font-weight: 600;
-      color: #81C784;
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1rem;
-    }
-
-    p {
-      text-align: center;
-      margin-top: 20px;
-      color: #bbb;
-      font-size: 0.95rem;
-    }
-
-    p a {
-      color: #81C784;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    p a:hover {
-      color: #4CAF50;
-    }
-
-    .question-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .question-options label {
-      background: #333;
-      padding: 12px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease, border-color 0.3s ease;
-      display: flex;
-      align-items: center;
-      border: 1px solid #444;
-      color: #eee;
-    }
-
-    .question-options label:hover {
-      background: #444;
-      border-color: #81C784;
-    }
-
-    .question-options input[type="radio"] {
-      width: auto;
-      margin: 0 10px 0 0;
-      transform: scale(1.2);
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      border: 2px solid #81C784;
-      border-radius: 50%;
-      height: 18px;
-      width: 18px;
-      transition: background 0.3s ease;
+      background: var(--container-bg);
+      backdrop-filter: blur(15px) saturate(180%);
+      -webkit-backdrop-filter: blur(15px) saturate(180%);
+      padding: 30px 25px 120px 25px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%; max-width: 500px;
+      min-height: 95vh; max-height: 95vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px 0 var(--shadow-color);
+      display: flex; flex-direction: column;
       position: relative;
-      flex-shrink: 0;
-    }
-
-    .question-options input[type="radio"]:checked {
-      background-color: #81C784;
-      border-color: #81C784;
-    }
-
-    .question-options input[type="radio"]:checked::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #212121;
-      transform: translate(-50%, -50%);
     }
     
-    #timer {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #FFC107;
-      text-align: center;
-      margin-bottom: 20px;
-      padding: 10px;
-      background: #333;
-      border-radius: 8px;
-      border: 1px solid #555;
+    .header-icons {
+      position: absolute; top: 20px; left: 25px;
+      display: flex; gap: 15px; z-index: 100;
+    }
+
+    .icon-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%; background: var(--item-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-color); display: flex;
+      align-items: center; justify-content: center;
+      cursor: pointer; font-size: 18px;
+      transition: all 0.3s ease;
+    }
+    .icon-btn:hover {
+      transform: translateY(-3px) scale(1.1);
+      color: var(--accent-color);
+      box-shadow: 0 0 15px var(--accent-glow);
     }
     
-    #search-bar {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      border: 1px solid #555;
-      background: #333;
-      color: #eee;
-    }
+    #theme-toggle .fa-sun { display: none; }
+    #theme-toggle .fa-moon { display: block; }
+    [data-theme="dark"] #theme-toggle .fa-sun { display: block; }
+    [data-theme="dark"] #theme-toggle .fa-moon { display: none; }
+    
+    h1, h2 { text-align: center; margin-bottom: 25px; font-weight: 700; color: var(--header-color); text-shadow: 0 0 10px var(--accent-glow); }
+    p { text-align: center; margin-top: 15px; font-size: 0.9rem; }
+    p a { color: var(--accent-color); text-decoration: none; font-weight: 600; }
+    hr { border-top: 1px solid var(--input-border); margin: 25px 0; }
+    input[type="text"], input[type="password"] { width: 100%; padding: 14px 15px; margin-bottom: 15px; border: 1px solid var(--input-border); border-radius: 10px; font-size: 1rem; font-family: 'Cairo', sans-serif; background: var(--input-bg); color: var(--text-color); transition: all 0.3s ease; }
+    input[type="text"]:focus, input[type="password"]:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 0 3px var(--accent-glow); }
+    button { width: 100%; padding: 14px 15px; margin-top: 10px; border: none; border-radius: 10px; font-size: 1.1rem; font-family: 'Cairo', sans-serif; font-weight: 700; background: linear-gradient(45deg, var(--accent-color), var(--header-color)); color: #fff; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px var(--shadow-color); }
+    button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--accent-glow); }
+    
+    .search-container { position: relative; margin-bottom: 25px; }
+    .search-container .fa-search { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: var(--input-border); transition: color 0.3s ease; }
+    #search-bar { padding-right: 40px; background: var(--input-bg); }
+    .search-container:focus-within .fa-search { color: var(--accent-color); }
+    .search-container:focus-within #search-bar { box-shadow: 0 0 10px var(--accent-glow), inset 0 0 5px var(--accent-glow); }
 
-    /* Styles for the new result feedback section */
-    #feedback-message {
-        font-size: 1.5rem;
-        font-weight: 700;
-        text-align: center;
-        margin-top: 25px;
-        margin-bottom: 25px;
-        padding: 20px;
-        border-radius: 10px;
-        background: rgba(0, 0, 0, 0.3);
-        color: #fff;
-        animation: fadeInScale 0.5s ease-out;
-    }
+    .test-item { background: var(--item-bg); padding: 15px 20px; margin-bottom: 12px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--input-border); box-shadow: 0 2px 5px var(--shadow-color); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    .test-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 25px var(--shadow-color); border-color: var(--accent-color); }
+    .test-item.completed { border-right: 5px solid var(--success-color); }
+    .test-item button { width: auto; padding: 8px 16px; font-size: 0.9rem; margin: 0; }
+    
+    section { animation: fadeIn 0.6s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hidden { display: none !important; }
 
-    #feedback-message.success {
-        background: linear-gradient(45deg, #4CAF50, #2E7D32);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.5);
-    }
+    #feedback-message { font-size: 1.2rem; padding: 20px; border-radius: 12px; margin-top: 15px; font-weight: 600; text-align: center; }
+    #feedback-message.success { background: var(--success-color); color: #fff; }
+    #feedback-message.good { background: var(--accent-color); color: #fff; }
+    #feedback-message.average { background: var(--warning-color); color: #111; }
+    #feedback-message.poor { background: var(--danger-color); color: #fff; }
 
-    #feedback-message.good {
-        background: linear-gradient(45deg, #2196F3, #1976D2);
-        box-shadow: 0 5px 15px rgba(33, 150, 243, 0.5);
-    }
+    .question-options label { background: var(--item-bg); padding: 12px 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--input-border); color: var(--text-color); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; }
+    .question-options label:hover { border-color: var(--accent-color); background: var(--item-hover-bg); }
+    .question-options input[type="radio"] { margin-left: 10px; }
+    .question-options input[type="radio"]:checked + span { color: var(--accent-color); font-weight: bold; }
 
-    #feedback-message.average {
-        background: linear-gradient(45deg, #FFC107, #FFA000);
-        color: #333; /* Darker text for yellow background */
-        box-shadow: 0 5px 15px rgba(255, 193, 7, 0.5);
+    .bottom-nav {
+        position: fixed; bottom: 20px; left: 50%;
+        transform: translateX(-50%); width: auto;
+        display: flex; gap: 10px; padding: 10px;
+        background: var(--container-bg);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-radius: 99px; border: 1px solid var(--input-border);
+        box-shadow: 0 8px 32px 0 var(--shadow-color);
+        z-index: 1000; transition: bottom 0.3s ease, opacity 0.3s ease;
     }
+    .bottom-nav.hidden { bottom: -100px; opacity: 0; }
+    
+    .nav-btn {
+        display: flex; align-items: center; gap: 8px;
+        padding: 10px 20px; background: transparent; border: none;
+        color: var(--text-color); opacity: 0.7; border-radius: 99px;
+        font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 600;
+        cursor: pointer; transition: all 0.3s ease;
+    }
+    .nav-btn.active {
+        opacity: 1; background: rgba(var(--accent-rgb), 0.15);
+        color: var(--accent-color); box-shadow: 0 0 15px -5px var(--accent-glow);
+    }
+    .tab-content { animation: fadeIn 0.5s; }
 
-    #feedback-message.poor {
-        background: linear-gradient(45deg, #D32F2F, #B71C1C);
-        box-shadow: 0 5px 15px rgba(211, 47, 47, 0.5);
-    }
-
-    @keyframes fadeInScale {
-        from {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
+    .spinner { border: 4px solid var(--input-border); border-top: 4px solid var(--accent-color); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
-<body>
+<body data-theme="dark">
+
   <div class="container">
+    
+    <div class="header-icons">
+      <div id="theme-toggle" class="icon-btn" title="تبديل الوضع"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></div>
+      <div id="logout-icon" class="icon-btn hidden" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></div>
+    </div>
+    
     <section id="register-section">
-      <h1>تسجيل جديد - طالب</h1>
-      <input type="text" id="register-name" placeholder="الاسم الكامل" />
-      <input type="password" id="register-password" placeholder="كلمة المرور" />
-      <button id="register-btn">تسجيل</button>
+      <h1>تسجيل جديد</h1>
+      <input type="text" id="register-name" placeholder="الاسم الكامل" /><input type="password" id="register-password" placeholder="كلمة المرور" /><button id="register-btn">تسجيل</button>
       <p>هل لديك حساب؟ <a href="#" id="to-login">تسجيل دخول</a></p>
     </section>
 
     <section id="login-section" class="hidden">
-      <h1>تسجيل دخول - طالب</h1>
-      <input type="text" id="login-name" placeholder="الاسم الكامل" />
-      <input type="password" id="login-password" placeholder="كلمة المرور" />
-      <button id="login-btn">دخول</button>
+      <h1>تسجيل الدخول</h1>
+      <input type="text" id="login-name" placeholder="الاسم الكامل" /><input type="password" id="login-password" placeholder="كلمة المرور" /><button id="login-btn">دخول</button>
       <p>ليس لديك حساب؟ <a href="#" id="to-register">تسجيل جديد</a></p>
     </section>
 
     <section id="student-dashboard-section" class="hidden">
       <h1>مرحبًا بك، <span id="student-name"></span>!</h1>
-      <button id="logout-btn" style="background:#D32F2F;">تسجيل خروج</button>
       <hr />
-
-      <input type="text" id="search-bar" placeholder="بحث باسم الاختبار أو الصف أو اسم المعلم..." />
-
-      <h2>الاختبارات المتاحة</h2>
-      <div id="available-tests-container">
-        <p style='color:#bbb;'>جارٍ تحميل الاختبارات...</p>
+      
+      <div id="tests-content" class="tab-content">
+        <div class="search-container">
+          <i class="fas fa-search"></i><input type="text" id="search-bar" placeholder="ابحث عن اختبار..." />
+        </div>
+        <h2>الاختبارات المتاحة</h2>
+        <div id="available-tests-container"></div>
       </div>
-
-      <h2 style="margin-top: 30px;">نتائجي</h2>
-      <div id="student-results-container">
-        <p style='color:#bbb;'>لم تحل أي اختبار بعد.</p>
+      <div id="results-content" class="tab-content hidden">
+        <h2>نتائجي السابقة</h2>
+        <div id="student-results-container"></div>
       </div>
     </section>
 
     <section id="take-test-section" class="hidden">
       <h2 id="current-test-title"></h2>
-      <div id="timer"></div>
-      <div id="questions-display">
-        </div>
-      <button id="submit-test-btn" style="background:#4CAF50;">تسليم الاختبار</button>
-      <button id="cancel-test-btn" style="background:#666; margin-top:10px;">إلغاء الاختبار</button>
+      <div id="timer" style="font-size: 1.8rem; font-weight: 700; color: var(--warning-color); text-align: center; margin-bottom: 20px;"></div>
+      <div id="questions-display"></div>
+      <button id="submit-test-btn">تسليم الاختبار</button>
+      <button id="cancel-test-btn" style="background: var(--item-hover-bg); color: var(--text-color);">إلغاء الاختبار</button>
     </section>
 
     <section id="test-result-section" class="hidden">
       <h1>نتيجتك</h1>
-      <h2 id="final-score"></h2>
-      <div id="feedback-message"></div> <button id="back-to-dashboard-btn" style="background:#2196F3;">العودة للوحة التحكم</button>
+      <h2 id="final-score" style="color: var(--header-color);"></h2>
+      <div id="retake-message" class="retake-message hidden" style="color: var(--warning-color); text-align: center; font-weight: bold; margin: 15px 0; padding: 10px; background: rgba(var(--warning-color), 0.1); border-radius: 8px; border: 1px solid var(--warning-color);"></div>
+      <div id="feedback-message"></div>
+      <button id="back-to-dashboard-btn">العودة للوحة التحكم</button>
     </section>
-
   </div>
+  
+  <nav class="bottom-nav hidden" id="bottom-nav">
+    <button id="nav-tests-btn" class="nav-btn active" data-target="tests-content"><i class="fas fa-file-alt"></i><span>الاختبارات</span></button>
+    <button id="nav-results-btn" class="nav-btn" data-target="results-content"><i class="fas fa-poll-h"></i><span>نتائجي</span></button>
+  </nav>
 
   <script type="module">
+    // --- الكود البرمجي الكامل والنهائي ---
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
-    import { getDatabase, ref, set, push, onValue, get, child, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js";
+    import { getDatabase, ref, set, onValue, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js";
 
-    // Firebase configuration (using the one you provided for the teacher)
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyAjE-2q6PONBkCin9ZN22gDp9Q8pAH9ZW8",
       authDomain: "story-97cf7.firebaseapp.com",
@@ -355,408 +254,286 @@
       appId: "1:742801388214:web:32a305a8057b0582c5ec17",
       measurementId: "G-9DPPWX7CF0"
     };
-
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
     // DOM Elements
-    const registerSection = document.getElementById("register-section");
-    const loginSection = document.getElementById("login-section");
-    const studentDashboardSection = document.getElementById("student-dashboard-section");
-    const takeTestSection = document.getElementById("take-test-section");
-    const testResultSection = document.getElementById("test-result-section");
-
-    const registerBtn = document.getElementById("register-btn");
-    const loginBtn = document.getElementById("login-btn");
-    const logoutBtn = document.getElementById("logout-btn");
-
-    const toLoginLink = document.getElementById("to-login");
-    const toRegisterLink = document.getElementById("to-register");
-
+    const allSections = document.querySelectorAll('section');
+    const studentDashboardSection = document.getElementById('student-dashboard-section');
+    const takeTestSection = document.getElementById('take-test-section');
+    const testResultSection = document.getElementById('test-result-section');
+    const logoutIcon = document.getElementById('logout-icon');
     const studentNameSpan = document.getElementById("student-name");
     const availableTestsContainer = document.getElementById("available-tests-container");
     const studentResultsContainer = document.getElementById("student-results-container");
-
+    const bottomNav = document.getElementById('bottom-nav');
     const currentTestTitle = document.getElementById("current-test-title");
     const timerDisplay = document.getElementById("timer");
     const questionsDisplay = document.getElementById("questions-display");
-    const submitTestBtn = document.getElementById("submit-test-btn");
-    const cancelTestBtn = document.getElementById("cancel-test-btn");
     const finalScoreDisplay = document.getElementById("final-score");
-    const feedbackMessage = document.getElementById("feedback-message"); // New element
-    const backToDashboardBtn = document.getElementById("back-to-dashboard-btn");
+    const retakeMessage = document.getElementById("retake-message");
+    const feedbackMessage = document.getElementById("feedback-message");
     const searchBar = document.getElementById("search-bar");
 
     // Variables
     let currentStudent = null;
+    let studentTakenTests = {};
+    let allTestsData = {};
     let currentTest = null;
     let testInterval = null;
-    let currentTestDuration = 0;
-    let answers = {};
-    let allTests = {}; // To store all tests for filtering
 
-    // --- Utility Functions ---
-    function showSection(section) {
-      registerSection.classList.add("hidden");
-      loginSection.classList.add("hidden");
-      studentDashboardSection.classList.add("hidden");
-      takeTestSection.classList.add("hidden");
-      testResultSection.classList.add("hidden");
-      section.classList.remove("hidden");
+    // --- UI & Theme Functions ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const applyTheme = (theme) => { body.dataset.theme = theme; localStorage.setItem('theme', theme); };
+    themeToggle.onclick = () => { applyTheme(body.dataset.theme === 'dark' ? 'light' : 'dark'); };
+    applyTheme(localStorage.getItem('theme') || 'dark');
+
+    function showSection(sectionToShow) {
+        allSections.forEach(s => s.classList.add('hidden'));
+        sectionToShow.classList.remove('hidden');
+        bottomNav.classList.toggle('hidden', sectionToShow.id !== 'student-dashboard-section');
     }
 
-    async function saveUser(name, password) {
-      const userRef = ref(db, `students/${name}`);
-      const snapshot = await get(userRef);
-      if (snapshot.exists()) {
-        alert("اسم المستخدم موجود بالفعل، حاول اسم آخر");
-        return false;
-      }
-      await set(userRef, { password: password });
-      return true;
-    }
+    function showLoadingSpinner(container) { container.innerHTML = `<div class="spinner"></div>`; }
 
-    async function verifyUser(name, password) {
-      const userRef = ref(db, `students/${name}`);
-      const snapshot = await get(userRef);
-      if (!snapshot.exists()) return false;
-      const data = snapshot.val();
-      return data.password === password;
-    }
-
-    function formatTime(seconds) {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = seconds % 60;
-      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
-
-    // --- Core Functionality ---
-
-    // Load available tests for student
-    function loadAvailableTests() {
-      const allTeachersTestsRef = ref(db, `tests`);
-      onValue(allTeachersTestsRef, (snapshot) => {
-        availableTestsContainer.innerHTML = "";
-        allTests = {}; // Clear previous data
-        if (!snapshot.exists()) {
-          availableTestsContainer.innerHTML = "<p style='color:#bbb;'>لا توجد اختبارات متاحة حاليًا.</p>";
-          return;
-        }
-
-        const teachersData = snapshot.val();
-        let testsFound = false;
-
-        for (const teacherId in teachersData) {
-          const teacherTests = teachersData[teacherId];
-          for (const testId in teacherTests) {
-            const test = teacherTests[testId];
-            
-            // Check if test is expired (3 days = 3 * 24 * 60 * 60 * 1000 milliseconds)
-            // You need to ensure the teacher's code adds a 'timestamp' when creating a test.
-            // If test.timestamp exists and is older than 3 days, skip it.
-            const threeDaysAgo = Date.now() - (3 * 24 * 60 * 60 * 1000);
-            if (test.timestamp && test.timestamp < threeDaysAgo) {
-                continue; // Skip expired tests
-            }
-
-
-            const div = document.createElement("div");
-            div.classList.add("test-item");
-            div.innerHTML = `<span>${test.name} - الصف: ${test.grade} - المعلم: ${teacherId} - مدة: ${test.duration} دقيقة</span>
-                             <button class="start-test-btn" data-teacherid="${teacherId}" data-testid="${testId}" style="background:#2196F3; margin:0;">بدء الاختبار</button>`;
-            availableTestsContainer.appendChild(div);
-            testsFound = true;
-
-            // Store test data for search functionality
-            allTests[`${teacherId}-${testId}`] = { ...test, teacherId, testId };
-          }
-        }
-
-        if (!testsFound) {
-          availableTestsContainer.innerHTML = "<p style='color:#bbb;'>لا توجد اختبارات متاحة حاليًا.</p>";
-        }
-
-        document.querySelectorAll('.start-test-btn').forEach(button => {
-          button.onclick = (e) => {
-            e.stopPropagation();
-            startTest(button.dataset.teacherid, button.dataset.testid);
-          };
-        });
-      });
-    }
-
-    // Load student's past results
-    function loadStudentResults() {
-      const studentResultsRef = ref(db, `studentResults/${currentStudent}`);
-      onValue(studentResultsRef, (snapshot) => {
-        studentResultsContainer.innerHTML = "";
-        if (!snapshot.exists()) {
-          studentResultsContainer.innerHTML = "<p style='color:#bbb;'>لم تحل أي اختبار بعد.</p>";
-          return;
-        }
-        const resultsData = snapshot.val();
-        let hasResults = false;
-        // Convert object to array for sorting by timestamp
-        const sortedResults = Object.values(resultsData).sort((a, b) => b.timestamp - a.timestamp);
-
-        sortedResults.forEach(result => {
-          const div = document.createElement("div");
-          // Format timestamp to a readable date/time (optional)
-          const date = result.timestamp ? new Date(result.timestamp).toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' }) : 'غير متوفر';
-          div.innerHTML = `<div>الاختبار: <strong>${result.testName}</strong> - المعلم: <strong>${result.teacherName}</strong> - الدرجة: <strong>${result.score}</strong> <br> <small style="color:#aaa;">تاريخ: ${date}</small></div>`;
-          studentResultsContainer.appendChild(div);
-          hasResults = true;
-        });
-        if (!hasResults) {
-          studentResultsContainer.innerHTML = "<p style='color:#bbb;'>لم تحل أي اختبار بعد.</p>";
-        }
-      });
-    }
-
-    async function startTest(teacherId, testId) {
-      const testRef = ref(db, `tests/${teacherId}/${testId}`);
-      const snapshot = await get(testRef);
-
-      if (!snapshot.exists()) {
-        alert("عذراً، هذا الاختبار غير موجود أو تم حذفه.");
-        return;
-      }
-
-      currentTest = { ...snapshot.val(), id: testId, teacherId: teacherId };
-      currentTestTitle.textContent = currentTest.name;
-      currentTestDuration = currentTest.duration * 60; // Convert minutes to seconds
-      answers = {}; // Reset answers for new test
-
-      renderQuestions();
-      startTimer();
-      showSection(takeTestSection);
-    }
-
-    function renderQuestions() {
-      questionsDisplay.innerHTML = "";
-      currentTest.questions.forEach((q, qIndex) => {
-        const questionDiv = document.createElement("div");
-        questionDiv.style.marginBottom = "25px";
-        questionDiv.innerHTML = `<h4>السؤال ${qIndex + 1}: ${q.question}</h4>`;
-
-        const optionsDiv = document.createElement("div");
-        optionsDiv.classList.add("question-options");
-
-        q.options.forEach((option, oIndex) => {
-          const optionLabel = document.createElement("label");
-          optionLabel.innerHTML = `<input type="radio" name="question-${qIndex}" value="${oIndex + 1}" />
-                                   <span>${option}</span>`;
-          optionsDiv.appendChild(optionLabel);
-        });
-        questionDiv.appendChild(optionsDiv);
-        questionsDisplay.appendChild(questionDiv);
-
-        // Add event listener for radio buttons to record answers
-        optionsDiv.querySelectorAll(`input[name="question-${qIndex}"]`).forEach(radio => {
-          radio.addEventListener('change', (event) => {
-            answers[qIndex] = parseInt(event.target.value);
-          });
-        });
-      });
-    }
-
-    function startTimer() {
-      timerDisplay.textContent = formatTime(currentTestDuration);
-      if (testInterval) clearInterval(testInterval); // Clear any existing timer
-
-      testInterval = setInterval(() => {
-        currentTestDuration--;
-        timerDisplay.textContent = formatTime(currentTestDuration);
-
-        if (currentTestDuration <= 0) {
-          clearInterval(testInterval);
-          submitTest(true); // Submit automatically when time runs out
-        }
-      }, 1000);
-    }
-
-    async function submitTest(timeUp = false) {
-      clearInterval(testInterval); // Stop the timer
-
-      let score = 0;
-      const totalQuestions = currentTest.questions.length;
-      currentTest.questions.forEach((q, qIndex) => {
-        if (answers[qIndex] === q.correct) {
-          score++;
-        }
-      });
-
-      // Calculate percentage for feedback
-      const percentage = (score / totalQuestions) * 100;
-      let feedbackText = "";
-      let feedbackClass = "";
-
-      if (percentage === 100) {
-          feedbackText = "مذهل! لقد حصلت على الدرجة الكاملة! أنت نجم حقيقي! 🤩";
-          feedbackClass = "success";
-      } else if (percentage >= 80) {
-          feedbackText = "عمل رائع! نتيجتك ممتازة، استمر في هذا المستوى المذهل! ✨";
-          feedbackClass = "good";
-      } else if (percentage >= 50) {
-          feedbackText = "نتيجة جيدة! هذا تقدم رائع، مع قليل من المراجعة ستحقق الأفضل! 👍";
-          feedbackClass = "average";
-      } else {
-          feedbackText = "لا تقلق! هذه مجرد بداية، كل اختبار هو فرصة للتعلم. تابع المراجعة وستتحسن بالتأكيد! 💪";
-          feedbackClass = "poor";
-      }
-
-      // Save result to Firebase for student's history
-      const studentResultRef = ref(db, `studentResults/${currentStudent}/${currentTest.id}`);
-      await set(studentResultRef, {
-        testName: currentTest.name,
-        teacherName: currentTest.teacherId, // Store teacher's name with the result
-        score: `${score}/${totalQuestions}`,
-        timestamp: serverTimestamp() // Add timestamp for result
-      });
-
-      // Save result to Firebase for teacher's view
-      const teacherResultRef = ref(db, `results/${currentTest.teacherId}/${currentTest.id}/${currentStudent}`);
-      await set(teacherResultRef, `${score}/${totalQuestions}`);
-
-
-      finalScoreDisplay.textContent = `درجتك: ${score} من ${totalQuestions}`;
-      feedbackMessage.textContent = feedbackText;
-      feedbackMessage.className = ``; // Clear previous classes
-      feedbackMessage.classList.add(feedbackClass); // Add new class for styling
-
-      showSection(testResultSection);
-
-      if (timeUp) {
-        alert("انتهى وقت الاختبار!");
-      }
-    }
-
-    function cancelTest() {
-      if (confirm("هل أنت متأكد من إلغاء الاختبار؟ سيتم فقدان تقدمك.")) {
-        clearInterval(testInterval);
-        currentTest = null;
-        answers = {};
-        showSection(studentDashboardSection);
-        loadAvailableTests(); // Refresh the list in case of cancellation
-        loadStudentResults();
-      }
-    }
-    
-    // Search functionality
-    searchBar.addEventListener('input', () => {
-        const searchTerm = searchBar.value.toLowerCase().trim();
-        availableTestsContainer.innerHTML = "";
-        let foundTests = false;
-
-        for (const key in allTests) {
-            const test = allTests[key];
-            const testText = `${test.name} ${test.grade} ${test.teacherId}`.toLowerCase();
-            const threeDaysAgo = Date.now() - (3 * 24 * 60 * 60 * 1000); // Re-check expiry for search results too
-            if (test.timestamp && test.timestamp < threeDaysAgo) {
-                continue; // Skip expired tests even in search
-            }
-
-            if (testText.includes(searchTerm)) {
-                const div = document.createElement("div");
-                div.classList.add("test-item");
-                div.innerHTML = `<span>${test.name} - الصف: ${test.grade} - المعلم: ${test.teacherId} - مدة: ${test.duration} دقيقة</span>
-                                 <button class="start-test-btn" data-teacherid="${test.teacherId}" data-testid="${test.testId}" style="background:#2196F3; margin:0;">بدء الاختبار</button>`;
-                availableTestsContainer.appendChild(div);
-                foundTests = true;
-            }
-        }
-
-        if (!foundTests) {
-            availableTestsContainer.innerHTML = "<p style='color:#bbb;'>لا توجد اختبارات مطابقة لبحثك.</p>";
-        }
-
-        document.querySelectorAll('.start-test-btn').forEach(button => {
-            button.onclick = (e) => {
-                e.stopPropagation();
-                startTest(button.dataset.teacherid, button.dataset.testid);
-            };
+    // --- Navigation Bar Logic ---
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.add('hidden'));
+            button.classList.add('active');
+            document.getElementById(button.dataset.target).classList.remove('hidden');
         });
     });
 
+    function setDefaultTab() {
+        document.getElementById('nav-tests-btn').click();
+    }
+
+    // --- Core Application Logic ---
+    async function updateDashboard() {
+        if (!currentStudent) return;
+        studentNameSpan.textContent = currentStudent;
+        logoutIcon.classList.remove('hidden');
+        setDefaultTab();
+
+        showLoadingSpinner(availableTestsContainer);
+        showLoadingSpinner(studentResultsContainer);
+
+        const resultsSnapshot = await get(ref(db, `studentResults/${currentStudent}`));
+        studentTakenTests = resultsSnapshot.exists() ? resultsSnapshot.val() : {};
+        loadStudentResults();
+        
+        const testsRef = ref(db, 'tests');
+        onValue(testsRef, (snapshot) => {
+            allTestsData = snapshot.exists() ? snapshot.val() : {};
+            renderAvailableTests();
+        }, { onlyOnce: true });
+    }
+
+    function renderAvailableTests(searchTerm = '') {
+        availableTestsContainer.innerHTML = "";
+        let testsFound = false;
+        
+        Object.entries(allTestsData).forEach(([teacherId, teacherTests]) => {
+            Object.entries(teacherTests).forEach(([testId, test]) => {
+                const testText = `${test.name} ${test.grade} ${teacherId}`.toLowerCase();
+                if (searchTerm && !testText.includes(searchTerm.toLowerCase())) return;
+
+                testsFound = true;
+                const isCompleted = !!studentTakenTests[testId];
+                const div = document.createElement('div');
+                div.className = `test-item ${isCompleted ? 'completed' : ''}`;
+                div.innerHTML = `
+                    <div>
+                        <strong>${test.name}</strong><br>
+                        <small>${test.grade} - المعلم: ${teacherId}</small>
+                    </div>
+                    <button class="start-test-btn" style="background: ${isCompleted ? 'var(--warning-color)' : 'var(--accent-color)'}; color: ${isCompleted ? '#111' : '#fff'};">
+                        ${isCompleted ? 'إعادة المحاولة' : 'بدء الاختبار'}
+                    </button>`;
+                div.querySelector('button').onclick = () => startTest(teacherId, testId, test);
+                availableTestsContainer.appendChild(div);
+            });
+        });
+
+        if (!testsFound) {
+            availableTestsContainer.innerHTML = "<p>لا توجد اختبارات مطابقة.</p>";
+        }
+    }
+
+    function loadStudentResults() {
+        studentResultsContainer.innerHTML = "";
+        const resultsArray = Object.values(studentTakenTests).sort((a, b) => b.timestamp - a.timestamp);
+        if (resultsArray.length === 0) {
+            studentResultsContainer.innerHTML = "<p>لم تحل أي اختبار بعد.</p>";
+            return;
+        }
+        resultsArray.forEach(result => {
+            const date = new Date(result.timestamp).toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' });
+            const div = document.createElement("div");
+            div.style = "background: var(--item-bg); padding: 10px; border-radius: 8px; margin-bottom: 8px; border-right: 3px solid var(--accent-color)";
+            div.innerHTML = `<strong>${result.testName}</strong> - الدرجة: <strong>${result.score}</strong><br><small>${date}</small>`;
+            studentResultsContainer.appendChild(div);
+        });
+    }
+
+    async function saveUser(name, password) {
+        const userRef = ref(db, `students/${name}`);
+        if ((await get(userRef)).exists()) {
+            alert("اسم المستخدم هذا موجود بالفعل.");
+            return false;
+        }
+        await set(userRef, { password: password });
+        return true;
+    }
+
+    async function verifyUser(name, password) {
+        const snapshot = await get(ref(db, `students/${name}`));
+        return snapshot.exists() && snapshot.val().password === password;
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+    
+    function startTest(teacherId, testId, testData) {
+        if (studentTakenTests[testId]) {
+            alert("تنبيه: هذه محاولة للمراجعة فقط. نتيجتك الأولى هي التي سيتم احتسابها.");
+        }
+        currentTest = { ...testData, id: testId, teacherId: teacherId };
+        currentTestTitle.textContent = currentTest.name;
+        let currentTestDuration = currentTest.duration * 60;
+        
+        questionsDisplay.innerHTML = "";
+        currentTest.questions.forEach((q, qIndex) => {
+            const questionDiv = document.createElement("div");
+            questionDiv.style.marginBottom = "25px";
+            questionDiv.innerHTML = `<h4>السؤال ${qIndex + 1}: ${q.question}</h4>`;
+            const optionsDiv = document.createElement("div");
+            optionsDiv.className = "question-options";
+            q.options.forEach((option, oIndex) => {
+                const optionLabel = document.createElement("label");
+                optionLabel.innerHTML = `<input type="radio" name="question-${qIndex}" value="${oIndex + 1}" /><span>${option}</span>`;
+                optionsDiv.appendChild(optionLabel);
+            });
+            questionDiv.appendChild(optionsDiv);
+            questionsDisplay.appendChild(questionDiv);
+        });
+        
+        if (testInterval) clearInterval(testInterval);
+        timerDisplay.textContent = formatTime(currentTestDuration);
+        testInterval = setInterval(() => {
+            currentTestDuration--;
+            timerDisplay.textContent = formatTime(currentTestDuration);
+            if (currentTestDuration < 0) {
+                clearInterval(testInterval);
+                submitTest(true);
+            }
+        }, 1000);
+        showSection(takeTestSection);
+    }
+
+    async function submitTest(timeUp = false) {
+        clearInterval(testInterval);
+        if (timeUp) alert("انتهى وقت الاختبار!");
+
+        let answers = {};
+        currentTest.questions.forEach((q, qIndex) => {
+            const checked = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+            if (checked) answers[qIndex] = parseInt(checked.value);
+        });
+
+        let score = 0;
+        currentTest.questions.forEach((q, qIndex) => { if (answers[qIndex] === q.correct) score++; });
+        
+        const percentage = (score / currentTest.questions.length) * 100;
+        let feedbackText, feedbackClass;
+        if (percentage === 100) { feedbackText = "مذهل! لقد حصلت على الدرجة الكاملة! 🤩"; feedbackClass = "success"; }
+        else if (percentage >= 80) { feedbackText = "عمل رائع! نتيجتك ممتازة! ✨"; feedbackClass = "good"; }
+        else if (percentage >= 50) { feedbackText = "نتيجة جيدة! استمر بالتقدم! 👍"; feedbackClass = "average"; }
+        else { feedbackText = "لا تقلق! كل اختبار فرصة للتعلم. 💪"; feedbackClass = "poor"; }
+        
+        retakeMessage.classList.add('hidden');
+        if (studentTakenTests[currentTest.id]) {
+            retakeMessage.textContent = "هذه محاولة للمراجعة. تم الاحتفاظ بنتيجتك الأولى.";
+            retakeMessage.classList.remove('hidden');
+        } else {
+            const resultData = { testName: currentTest.name, teacherName: currentTest.teacherId, score: `${score}/${currentTest.questions.length}`, timestamp: serverTimestamp() };
+            await set(ref(db, `studentResults/${currentStudent}/${currentTest.id}`), resultData);
+            await set(ref(db, `results/${currentTest.teacherId}/${currentTest.id}/${currentStudent}`), resultData.score);
+            studentTakenTests[currentTest.id] = resultData;
+        }
+
+        finalScoreDisplay.textContent = `درجتك: ${score} من ${currentTest.questions.length}`;
+        feedbackMessage.className = ``; feedbackMessage.classList.add(feedbackClass);
+        feedbackMessage.textContent = feedbackText;
+        showSection(testResultSection);
+    }
+
+    function cancelTest() {
+        if (confirm("هل أنت متأكد من إلغاء الاختبار؟ سيتم فقدان تقدمك.")) {
+            clearInterval(testInterval);
+            showSection(studentDashboardSection);
+        }
+    }
 
     // --- Event Listeners ---
-    registerBtn.onclick = async () => {
-      const name = document.getElementById("register-name").value.trim();
-      const password = document.getElementById("register-password").value.trim();
-
-      if (!name || !password) {
-        alert("الرجاء تعبئة الاسم وكلمة المرور.");
-        return;
-      }
-      const success = await saveUser(name, password);
-      if (success) {
-        alert("تم التسجيل بنجاح. يمكنك الآن تسجيل الدخول.");
-        showSection(loginSection);
-        // Clear input fields after successful registration
-        document.getElementById("register-name").value = "";
-        document.getElementById("register-password").value = "";
-      }
-    };
-
-    loginBtn.onclick = async () => {
+    document.getElementById('login-btn').onclick = async () => {
       const name = document.getElementById("login-name").value.trim();
       const password = document.getElementById("login-password").value.trim();
-
-      if (!name || !password) {
-        alert("الرجاء تعبئة الاسم وكلمة المرور.");
-        return;
-      }
-      const verified = await verifyUser(name, password);
-      if (verified) {
+      if (!name || !password) return alert("الرجاء تعبئة الاسم وكلمة المرور.");
+      if (await verifyUser(name, password)) {
         currentStudent = name;
-        studentNameSpan.textContent = currentStudent;
+        localStorage.setItem("loggedInStudent", currentStudent);
         showSection(studentDashboardSection);
-        loadAvailableTests();
-        loadStudentResults();
-        sessionStorage.setItem("loggedInStudent", currentStudent);
-        // Clear input fields after successful login
-        document.getElementById("login-name").value = "";
-        document.getElementById("login-password").value = "";
-      } else {
-        alert("اسم المستخدم أو كلمة المرور غير صحيحة.");
+        updateDashboard();
+      } else { alert("اسم المستخدم أو كلمة المرور غير صحيحة."); }
+    };
+    
+    document.getElementById('register-btn').onclick = async () => {
+        const name = document.getElementById("register-name").value.trim();
+        const password = document.getElementById("register-password").value.trim();
+        if(!name || !password) return alert("الرجاء تعبئة كل الحقول");
+        if (await saveUser(name, password)) {
+            alert("تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.");
+            showSection(document.getElementById('login-section'));
+        }
+    };
+    
+    logoutIcon.onclick = () => {
+      if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) {
+          currentStudent = null;
+          localStorage.removeItem("loggedInStudent");
+          showSection(document.getElementById('login-section'));
+          logoutIcon.classList.add('hidden');
       }
     };
-
-    logoutBtn.onclick = () => {
-      currentStudent = null;
-      sessionStorage.removeItem("loggedInStudent");
-      showSection(loginSection);
+    
+    searchBar.addEventListener('input', (e) => renderAvailableTests(e.target.value));
+    document.getElementById('submit-test-btn').onclick = () => submitTest(false);
+    document.getElementById('cancel-test-btn').onclick = cancelTest;
+    document.getElementById('back-to-dashboard-btn').onclick = () => {
+        showSection(studentDashboardSection);
+        updateDashboard();
     };
+    document.getElementById('to-login').onclick = (e) => { e.preventDefault(); showSection(document.getElementById('login-section')); };
+    document.getElementById('to-register').onclick = (e) => { e.preventDefault(); showSection(document.getElementById('register-section')); };
 
-    toLoginLink.onclick = e => {
-      e.preventDefault();
-      showSection(loginSection);
-    };
-
-    toRegisterLink.onclick = e => {
-      e.preventDefault();
-      showSection(registerSection);
-    };
-
-    submitTestBtn.onclick = () => submitTest(false);
-    cancelTestBtn.onclick = cancelTest;
-    backToDashboardBtn.onclick = () => {
-      showSection(studentDashboardSection);
-      loadAvailableTests(); // Refresh available tests after completing one
-      loadStudentResults();
-    };
-
-    // Initialize on load
+    // --- Init on load ---
     window.onload = () => {
-      const savedStudent = sessionStorage.getItem("loggedInStudent");
+      const savedStudent = localStorage.getItem("loggedInStudent");
       if (savedStudent) {
         currentStudent = savedStudent;
-        studentNameSpan.textContent = currentStudent;
         showSection(studentDashboardSection);
-        loadAvailableTests();
-        loadStudentResults();
+        updateDashboard();
       } else {
-        showSection(registerSection);
+        showSection(document.getElementById('register-section'));
       }
     };
   </script>

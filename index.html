@@ -5,20 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>منصة الاختبارات - الطالب</title>
 
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="الاختبارات">
+  <!-- New Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png">
+  <meta name="theme-color" content="#3081f7">
+
   <!-- Open Graph Meta Tags for social sharing -->
-  <!-- هذه العلامات تحدد كيف يظهر رابط موقعك عند مشاركته على فيسبوك، واتساب، وغيرها -->
   <meta property="og:title" content="منصة الاختبارات التعليمية للطلاب" />
   <meta property="og:description" content="منصة متكاملة للطلاب لإجراء الاختبارات ومراجعة النتائج بسهولة وفعالية." />
-  <meta property="og:image" content="https://i.postimg.cc/cCLZPwnw/2dd388fc-039e-4ce1-ab35-4f9db8cc40b2.png" />
+  <!-- New Open Graph Image -->
+  <meta property="og:image" content="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png" />
   <meta property="og:url" content="https://saif1230876657.github.io/saifSAR2/" />
   <meta property="og:type" content="website" />
 
   <!-- Twitter Card Meta Tags (optional, but good for Twitter) -->
-  <!-- هذه العلامات تحدد كيف يظهر رابط موقعك عند مشاركته على تويتر -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="منصة الاختبارات التعليمية للطلاب">
   <meta name="twitter:description" content="منصة متكاملة للطلاب لإجراء الاختبارات ومراجعة النتائج بسهولة وفعالية.">
-  <meta name="twitter:image" content="https://i.postimg.cc/cCLZPwnw/2dd388fc-039e-4ce1-ab35-4f9db8cc40b2.png">
+  <!-- New Twitter Image -->
+  <meta name="twitter:image" content="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -90,10 +99,128 @@
     .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: auto; display: flex; gap: 10px; padding: 10px; background: var(--container-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: 99px; border: 1px solid var(--input-border); box-shadow: 0 8px 32px 0 var(--shadow-color); z-index: 1000; transition: bottom 0.3s ease, opacity 0.3s ease; }
     .bottom-nav.hidden { bottom: -100px; opacity: 0; } .nav-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: transparent; border: none; color: var(--text-color); opacity: 0.7; border-radius: 99px; font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; } .nav-btn.active { opacity: 1; background: rgba(var(--accent-rgb), 0.15); color: var(--accent-color); box-shadow: 0 0 15px -5px var(--accent-glow); }
     .spinner { border: 4px solid var(--input-border); border-top: 4px solid var(--accent-color); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Styles for the custom alert/toast messages */
+    .custom-alert-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+      z-index: 9999; /* Ensure it's on top */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .custom-alert-container.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .custom-alert {
+      background: var(--item-bg);
+      border-radius: 12px;
+      padding: 25px 30px;
+      margin: 20px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 8px 25px var(--shadow-color);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .custom-alert-container.show .custom-alert {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .custom-alert-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .custom-alert.success .custom-alert-icon { color: var(--success-color); }
+    .custom-alert.error .custom-alert-icon { color: var(--danger-color); }
+    .custom-alert.warning .custom-alert-icon { color: var(--warning-color); }
+    .custom-alert.info .custom-alert-icon { color: var(--accent-color); }
+
+    .custom-alert-message {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .custom-alert-close-btn {
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+    .custom-alert-close-btn:hover {
+      background: var(--header-color);
+    }
+
+    /* Toast-like notifications (if needed for non-blocking messages) */
+    .toast-container {
+        position: fixed;
+        bottom: 100px; /* Above the bottom nav */
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10000;
+        pointer-events: none; /* Allows clicks through to elements underneath */
+    }
+    .toast {
+        background: var(--container-bg);
+        color: var(--text-color);
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px var(--shadow-color);
+        margin-bottom: 10px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        min-width: 200px;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+    .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* Specific toast types */
+    .toast.success { border: 1px solid var(--success-color); }
+    .toast.error { border: 1px solid var(--danger-color); }
+    .toast.info { border: 1px solid var(--accent-color); }
+
   </style>
 </head>
 <body data-theme="dark">
   <div class="container">
+    <!-- Custom Alert Container (add this inside the body, preferably right after .container) -->
+    <div id="custom-alert-container" class="custom-alert-container">
+      <div id="custom-alert" class="custom-alert">
+        <i id="custom-alert-icon" class="fas"></i>
+        <div id="custom-alert-message" class="custom-alert-message"></div>
+        <button id="custom-alert-close-btn" class="custom-alert-close-btn">موافق</button>
+      </div>
+    </div>
+
+    <!-- Toast Container (optional, for non-blocking messages) -->
+    <div id="toast-container" class="toast-container"></div>
+
     <div class="header-icons">
       <div id="theme-toggle" class="icon-btn" title="تبديل الوضع"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></div>
       <div id="logout-icon" class="icon-btn hidden" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></div>
@@ -235,10 +362,11 @@
                         await navigator.clipboard.writeText(testShareLink);
                         const originalIcon = shareButton.innerHTML;
                         shareButton.innerHTML = `<i class="fas fa-check"></i>`; // Show checkmark for feedback
+                        showToast("تم نسخ الرابط بنجاح!", "success"); // Use custom toast
                         setTimeout(() => { shareButton.innerHTML = originalIcon; }, 1500); // Revert after 1.5 seconds
                     } catch (err) {
                         console.error('Failed to copy text: ', err);
-                        alert('فشل نسخ الرابط. يرجى النسخ يدوياً: ' + testShareLink);
+                        showCustomAlert('فشل نسخ الرابط. يرجى النسخ يدوياً: ' + testShareLink, "error"); // Use custom alert
                     }
                 };
 
@@ -251,13 +379,13 @@
     }
 
     function loadStudentResults() { studentResultsContainer.innerHTML = ""; const resultsArray = Object.values(studentTakenTests).sort((a, b) => b.timestamp - a.timestamp); if (resultsArray.length === 0) { studentResultsContainer.innerHTML = "<p>لم تحل أي اختبار بعد.</p>"; return; } resultsArray.forEach(result => { const date = new Date(result.timestamp).toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' }); const div = document.createElement("div"); div.style = "background: var(--item-bg); padding: 10px; border-radius: 8px; margin-bottom: 8px; border-right: 3px solid var(--accent-color)"; div.innerHTML = `<strong>${result.testName}</strong> - الدرجة: <strong>${result.score}</strong><br><small>${date}</small>`; studentResultsContainer.appendChild(div); }); }
-    async function saveUser(name, password) { const userRef = ref(db, `students/${name}`); if ((await get(userRef)).exists()) { alert("اسم المستخدم هذا موجود بالفعل."); return false; } await set(userRef, { password: password }); return true; }
+    async function saveUser(name, password) { const userRef = ref(db, `students/${name}`); if ((await get(userRef)).exists()) { showCustomAlert("اسم المستخدم هذا موجود بالفعل.", "error"); return false; } await set(userRef, { password: password }); return true; }
     async function verifyUser(name, password) { const snapshot = await get(ref(db, `students/${name}`)); return snapshot.exists() && snapshot.val().password === password; }
     function formatTime(seconds) { const minutes = Math.floor(seconds / 60); const remainingSeconds = seconds % 60; return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`; }
     
     function startTest(teacherId, testId, testData) {
         if (studentTakenTests[testId] && testData.allowRetake !== true) { // Added check for allowRetake if you implement it
-            alert("تنبيه: لقد أكملت هذا الاختبار مسبقًا. هذه محاولة للمراجعة فقط، ولن يتم تحديث نتيجتك الأصلية.");
+            showCustomAlert("تنبيه: لقد أكملت هذا الاختبار مسبقًا. هذه محاولة للمراجعة فقط، ولن يتم تحديث نتيجتك الأصلية.", "info"); // Use custom alert
         }
         currentTest = { ...testData, id: testId, teacherId: teacherId };
         currentTestTitle.textContent = currentTest.name;
@@ -302,10 +430,11 @@
         showSection(takeTestSection);
     }
     
-    async function submitTest(timeUp = false) { clearInterval(testInterval); if (timeUp) alert("انتهى وقت الاختبار!"); let answers = {}; currentTest.questions.forEach((q, qIndex) => { const checked = document.querySelector(`input[name="question-${qIndex}"]:checked`); if (checked) answers[qIndex] = parseInt(checked.value); }); let score = 0; currentTest.questions.forEach((q, qIndex) => { if (answers[qIndex] === q.correct) score++; }); const percentage = (score / currentTest.questions.length) * 100; let feedbackText, feedbackClass; if (percentage === 100) { feedbackText = "مذهل! لقد حصلت على الدرجة الكاملة! 🤩"; feedbackClass = "success"; } else if (percentage >= 80) { feedbackText = "عمل رائع! نتيجتك ممتازة! ✨"; feedbackClass = "good"; } else if (percentage >= 50) { feedbackText = "نتيجة جيدة! استمر بالتقدم! 👍"; feedbackClass = "average"; } else { feedbackText = "لا تقلق! كل اختبار فرصة للتعلم. 💪"; feedbackClass = "poor"; } retakeMessage.classList.add('hidden'); 
+    async function submitTest(timeUp = false) { clearInterval(testInterval); if (timeUp) showCustomAlert("انتهى وقت الاختبار!", "warning"); // Use custom alert
+    let answers = {}; currentTest.questions.forEach((q, qIndex) => { const checked = document.querySelector(`input[name="question-${qIndex}"]:checked`); if (checked) answers[qIndex] = parseInt(checked.value); }); let score = 0; currentTest.questions.forEach((q, qIndex) => { if (answers[qIndex] === q.correct) score++; }); const percentage = (score / currentTest.questions.length) * 100; let feedbackText, feedbackClass; if (percentage === 100) { feedbackText = "مذهل! لقد حصلت على الدرجة الكاملة! 🤩"; feedbackClass = "success"; } else if (percentage >= 80) { feedbackText = "عمل رائع! نتيجتك ممتازة! ✨"; feedbackClass = "good"; } else if (percentage >= 50) { feedbackText = "نتيجة جيدة! استمر بالتقدم! 👍"; feedbackClass = "average"; } else { feedbackText = "لا تقلق! كل اختبار فرصة للتعلم. 💪"; feedbackClass = "poor"; } retakeMessage.classList.add('hidden'); 
         
         // Only save score if it's the first attempt or if allowRetake is true
-        // For simplicity, we keep the original logic for now which only saves the first attempt
+        // For simplicity, we keep the original logic for now which which only saves the first attempt
         if (studentTakenTests[currentTest.id]) { 
             retakeMessage.textContent = "هذه محاولة للمراجعة. تم الاحتفاظ بنتيجتك الأولى."; 
             retakeMessage.classList.remove('hidden'); 
@@ -322,7 +451,8 @@
         showSection(testResultSection); 
     }
 
-    function cancelTest() { if (confirm("هل أنت متأكد من إلغاء الاختبار؟ سيتم فقدان تقدمك.")) { clearInterval(testInterval); showSection(studentDashboardSection); updateDashboard(); } } // Added updateDashboard to refresh the list
+    // Keep confirm() for actions that require user decision (Ok/Cancel)
+    function cancelTest() { if (confirm("هل أنت متأكد من إلغاء الاختبار؟ سيتم فقدان تقدمك.")) { clearInterval(testInterval); showSection(studentDashboardSection); updateDashboard(); } } 
 
     // Helper function to attempt deep link start
     async function attemptDeepLinkStart() {
@@ -331,16 +461,14 @@
             const testToStart = allTestsData[teacherId]?.[testId];
             
             if (testToStart) {
-                // Ensure the student dashboard is active before starting the test
-                // This prevents issues if the app isn't fully initialized on page load
                 if(document.getElementById('student-dashboard-section').classList.contains('hidden')) {
                     showSection(studentDashboardSection);
                 }
                 startTest(teacherId, testId, testToStart);
-                deepLinkInfo = null; // Clear deep link after attempting to start
+                deepLinkInfo = null; 
             } else {
-                alert("عذراً، الاختبار المحدد بالرابط غير موجود أو المعلم غير صحيح.");
-                deepLinkInfo = null; // Clear deep link if not found
+                showCustomAlert("عذراً، الاختبار المحدد بالرابط غير موجود أو المعلم غير صحيح.", "error"); // Use custom alert
+                deepLinkInfo = null; 
             }
         }
     }
@@ -348,33 +476,38 @@
     document.getElementById('login-btn').onclick = async () => { 
         const name = document.getElementById("login-name").value.trim(); 
         const password = document.getElementById("login-password").value.trim(); 
-        if (!name || !password) return alert("الرجاء تعبئة الاسم وكلمة المرور."); 
+        if (!name || !password) return showCustomAlert("الرجاء تعبئة الاسم وكلمة المرور.", "warning"); // Use custom alert
         
         if (await verifyUser(name, password)) { 
             currentStudent = name; 
             localStorage.setItem("loggedInStudent", currentStudent); 
             showSection(studentDashboardSection); 
-            await updateDashboard(); // Ensure tests are loaded AFTER login
-            
-            // After successful login and dashboard update, attempt deep link start
+            await updateDashboard(); 
             attemptDeepLinkStart();
         } else { 
-            alert("اسم المستخدم أو كلمة المرور غير صحيحة."); 
+            showCustomAlert("اسم المستخدم أو كلمة المرور غير صحيحة.", "error"); // Use custom alert
         } 
     };
 
     document.getElementById('register-btn').onclick = async () => { 
         const name = document.getElementById("register-name").value.trim(); 
         const password = document.getElementById("register-password").value.trim(); 
-        if(!name || !password) return alert("الرجاء تعبئة كل الحقول"); 
+        if(!name || !password) return showCustomAlert("الرجاء تعبئة كل الحقول", "warning"); // Use custom alert
         
         if (await saveUser(name, password)) { 
-            alert("تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول."); 
+            showCustomAlert("تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.", "success"); // Use custom alert
             showSection(document.getElementById('login-section')); 
         } 
     };
 
-    logoutIcon.onclick = () => { if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) { currentStudent = null; localStorage.removeItem("loggedInStudent"); showSection(document.getElementById('login-section')); logoutIcon.classList.add('hidden'); } };
+    logoutIcon.onclick = () => { 
+        if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) { // Keep confirm() for user decision
+            currentStudent = null; 
+            localStorage.removeItem("loggedInStudent"); 
+            showSection(document.getElementById('login-section')); 
+            logoutIcon.classList.add('hidden'); 
+        } 
+    };
     searchBar.addEventListener('input', (e) => renderAvailableTests(e.target.value));
     document.getElementById('submit-test-btn').onclick = () => submitTest(false);
     document.getElementById('cancel-test-btn').onclick = cancelTest;
@@ -382,6 +515,78 @@
     document.getElementById('to-login').onclick = (e) => { e.preventDefault(); showSection(document.getElementById('login-section')); };
     document.getElementById('to-register').onclick = (e) => { e.preventDefault(); showSection(document.getElementById('register-section')); };
     
+    // --- Custom Alert/Toast Functions ---
+    const customAlertContainer = document.getElementById('custom-alert-container');
+    const customAlert = document.getElementById('custom-alert');
+    const customAlertIcon = document.getElementById('custom-alert-icon');
+    const customAlertMessage = document.getElementById('custom-alert-message');
+    const customAlertCloseBtn = document.getElementById('custom-alert-close-btn');
+    const toastContainer = document.getElementById('toast-container');
+
+    customAlertCloseBtn.onclick = () => {
+        customAlertContainer.classList.remove('show');
+        customAlert.classList.remove('success', 'error', 'warning', 'info');
+        customAlertIcon.className = 'fas'; // Reset icon classes
+    };
+    customAlertContainer.onclick = (e) => {
+        if (e.target === customAlertContainer) { // Close if clicked outside the alert box
+            customAlertCloseBtn.click();
+        }
+    };
+
+    /**
+     * Shows a custom styled alert message.
+     * @param {string} message - The message to display.
+     * @param {'success'|'error'|'warning'|'info'} type - Type of message for styling and icon.
+     */
+    function showCustomAlert(message, type = 'info') {
+        customAlertMessage.textContent = message;
+        customAlert.className = 'custom-alert ' + type; // Apply type class
+        customAlertIcon.className = 'fas'; // Reset icon first
+        switch (type) {
+            case 'success': customAlertIcon.classList.add('fa-check-circle'); break;
+            case 'error': customAlertIcon.classList.add('fa-times-circle'); break;
+            case 'warning': customAlertIcon.classList.add('fa-exclamation-triangle'); break;
+            case 'info': default: customAlertIcon.classList.add('fa-info-circle'); break;
+        }
+        customAlertContainer.classList.add('show');
+    }
+
+    /**
+     * Shows a non-blocking toast notification.
+     * @param {string} message - The message to display.
+     * @param {'success'|'error'|'info'} type - Type of message for styling.
+     * @param {number} duration - How long the toast should be visible in milliseconds. Default is 3000ms.
+     */
+    function showToast(message, type = 'info', duration = 3000) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 10); // Small delay to trigger transition
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+            toast.addEventListener('transitionend', () => toast.remove());
+        }, duration);
+    }
+
+    // --- PWA Service Worker Registration ---
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+
     // --- Initial Load Logic ---
     window.onload = async () => { 
         const savedStudent = localStorage.getItem("loggedInStudent"); 
@@ -401,10 +606,9 @@
         if (savedStudent) { 
             currentStudent = savedStudent; 
             showSection(studentDashboardSection); 
-            await updateDashboard(); // Loads tests and results, then calls attemptDeepLinkStart
+            await updateDashboard(); 
         } else { 
             showSection(document.getElementById('register-section')); 
-            // If there's a deep link but no logged-in user, we'll wait for login to handle it.
         } 
     };
   </script>

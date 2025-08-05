@@ -4,6 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>منصة الاختبارات - الطالب</title>
+
+  <!-- Open Graph Meta Tags for social sharing -->
+  <!-- هذه العلامات تحدد كيف يظهر رابط موقعك عند مشاركته على فيسبوك، واتساب، وغيرها -->
+  <meta property="og:title" content="منصة الاختبارات التعليمية للطلاب" />
+  <meta property="og:description" content="منصة متكاملة للطلاب لإجراء الاختبارات ومراجعة النتائج بسهولة وفعالية." />
+  <meta property="og:image" content="https://i.postimg.cc/cCLZPwnw/2dd388fc-039e-4ce1-ab35-4f9db8cc40b2.png" />
+  <meta property="og:url" content="https://saif1230876657.github.io/saifSAR2/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Meta Tags (optional, but good for Twitter) -->
+  <!-- هذه العلامات تحدد كيف يظهر رابط موقعك عند مشاركته على تويتر -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="منصة الاختبارات التعليمية للطلاب">
+  <meta name="twitter:description" content="منصة متكاملة للطلاب لإجراء الاختبارات ومراجعة النتائج بسهولة وفعالية.">
+  <meta name="twitter:image" content="https://i.postimg.cc/cCLZPwnw/2dd388fc-039e-4ce1-ab35-4f9db8cc40b2.png">
+
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
@@ -35,7 +51,39 @@
     .search-container { position: relative; margin-bottom: 25px; } .search-container .fa-search { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: var(--input-border); transition: color 0.3s ease; } #search-bar { padding-right: 40px; background: var(--input-bg); } .search-container:focus-within .fa-search { color: var(--accent-color); } .search-container:focus-within #search-bar { box-shadow: 0 0 10px var(--accent-glow), inset 0 0 5px var(--accent-glow); }
     .test-item { background: var(--item-bg); padding: 15px 20px; margin-bottom: 12px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--input-border); box-shadow: 0 2px 5px var(--shadow-color); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
     .test-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 25px var(--shadow-color); border-color: var(--accent-color); }
-    .test-item.completed { border-right: 5px solid var(--success-color); } .test-item button { width: auto; padding: 8px 16px; font-size: 0.9rem; margin: 0; }
+    .test-item.completed { border-right: 5px solid var(--success-color); } 
+    .test-item button { width: auto; padding: 8px 16px; font-size: 0.9rem; margin: 0; }
+    
+    /* New styles for share button */
+    .test-item .share-btn {
+      background: var(--item-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-color);
+      padding: 8px;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      margin-right: 10px; /* Space from start button for RTL */
+      box-shadow: none; /* No extra shadow for smaller button */
+    }
+    .test-item .share-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      color: var(--accent-color);
+      box-shadow: 0 0 10px var(--accent-glow);
+      border-color: var(--accent-color);
+    }
+    .test-item > div:last-child { /* Targets the div containing buttons */
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Ensures consistent spacing between buttons */
+    }
+
     section, .tab-content { animation: fadeIn 0.6s ease-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .hidden { display: none !important; }
     #feedback-message { font-size: 1.2rem; padding: 20px; border-radius: 12px; margin-top: 15px; font-weight: 600; text-align: center; } #feedback-message.success { background: var(--success-color); color: #fff; } #feedback-message.good { background: var(--accent-color); color: #fff; } #feedback-message.average { background: var(--warning-color); color: #111; } #feedback-message.poor { background: var(--danger-color); color: #fff; }
     .question-options label { background: var(--item-bg); padding: 12px 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--input-border); color: var(--text-color); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; } .question-options label:hover { border-color: var(--accent-color); background: var(--item-hover-bg); } .question-options input[type="radio"] { margin-left: 10px; } .question-options input[type="radio"]:checked + span { color: var(--accent-color); font-weight: bold; }
@@ -121,24 +169,101 @@
     const tabContents = document.querySelectorAll('.tab-content');
     navButtons.forEach(button => { button.addEventListener('click', () => { navButtons.forEach(btn => btn.classList.remove('active')); tabContents.forEach(content => content.classList.add('hidden')); button.classList.add('active'); document.getElementById(button.dataset.target).classList.remove('hidden'); }); });
     function setDefaultTab() { document.getElementById('nav-tests-btn').click(); }
-    async function updateDashboard() { if (!currentStudent) return; studentNameSpan.textContent = currentStudent; logoutIcon.classList.remove('hidden'); setDefaultTab(); showLoadingSpinner(availableTestsContainer); showLoadingSpinner(studentResultsContainer); const resultsSnapshot = await get(ref(db, `studentResults/${currentStudent}`)); studentTakenTests = resultsSnapshot.exists() ? resultsSnapshot.val() : {}; loadStudentResults(); const testsRef = ref(db, 'tests'); onValue(testsRef, (snapshot) => { allTestsData = snapshot.exists() ? snapshot.val() : {}; renderAvailableTests(); }, { onlyOnce: true }); }
-    function renderAvailableTests(searchTerm = '') { availableTestsContainer.innerHTML = ""; let testsFound = false; Object.entries(allTestsData).forEach(([teacherId, teacherTests]) => { Object.entries(teacherTests).forEach(([testId, test]) => { const testText = `${test.name} ${test.grade} ${teacherId}`.toLowerCase(); if (searchTerm && !testText.includes(searchTerm.toLowerCase())) return; testsFound = true; const isCompleted = !!studentTakenTests[testId]; const div = document.createElement('div'); div.className = `test-item ${isCompleted ? 'completed' : ''}`; div.innerHTML = `<div><strong>${test.name}</strong><br><small>${test.grade} - المعلم: ${teacherId}</small></div><button class="start-test-btn" style="background: ${isCompleted ? 'var(--warning-color)' : 'var(--accent-color)'}; color: ${isCompleted ? '#111' : '#fff'};">${isCompleted ? 'إعادة المحاولة' : 'بدء الاختبار'}</button>`; div.querySelector('button').onclick = () => startTest(teacherId, testId, test); availableTestsContainer.appendChild(div); }); }); if (!testsFound) { availableTestsContainer.innerHTML = "<p>لا توجد اختبارات مطابقة.</p>"; } }
+
+    // --- Deep linking related variables ---
+    let deepLinkInfo = null; // Stores { testId, teacherId } if present in URL
+
+    async function updateDashboard() { 
+        if (!currentStudent) return; 
+        studentNameSpan.textContent = currentStudent; 
+        logoutIcon.classList.remove('hidden'); 
+        setDefaultTab(); 
+        showLoadingSpinner(availableTestsContainer); 
+        showLoadingSpinner(studentResultsContainer); 
+        
+        const resultsSnapshot = await get(ref(db, `studentResults/${currentStudent}`)); 
+        studentTakenTests = resultsSnapshot.exists() ? resultsSnapshot.val() : {}; 
+        loadStudentResults(); 
+        
+        const testsRef = ref(db, 'tests'); 
+        // Use onValue without { onlyOnce: true } if you want real-time updates for tests
+        // For deep linking, we need tests data to be available, so ensure it loads
+        onValue(testsRef, (snapshot) => { 
+            allTestsData = snapshot.exists() ? snapshot.val() : {}; 
+            renderAvailableTests(); 
+            // Attempt deep link start *after* tests data is loaded
+            attemptDeepLinkStart(); 
+        }); 
+    }
+
+    function renderAvailableTests(searchTerm = '') { 
+        availableTestsContainer.innerHTML = ""; 
+        let testsFound = false; 
+        Object.entries(allTestsData).forEach(([teacherId, teacherTests]) => { 
+            Object.entries(teacherTests).forEach(([testId, test]) => { 
+                const testText = `${test.name} ${test.grade} ${teacherId}`.toLowerCase(); 
+                if (searchTerm && !testText.includes(searchTerm.toLowerCase())) return; 
+                
+                testsFound = true; 
+                const isCompleted = !!studentTakenTests[testId]; 
+                const div = document.createElement('div'); 
+                div.className = `test-item ${isCompleted ? 'completed' : ''}`; 
+                
+                // Construct the shareable link for the test
+                const testShareLink = `${window.location.origin}${window.location.pathname}?testId=${testId}&teacherId=${teacherId}`;
+
+                div.innerHTML = `
+                    <div>
+                        <strong>${test.name}</strong><br>
+                        <small>${test.grade} - المعلم: ${teacherId}</small>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="share-btn" title="نسخ رابط الاختبار"><i class="fas fa-share-alt"></i></button>
+                        <button class="start-test-btn" style="background: ${isCompleted ? 'var(--warning-color)' : 'var(--accent-color)'}; color: ${isCompleted ? '#111' : '#fff'};">
+                            ${isCompleted ? 'إعادة المحاولة' : 'بدء الاختبار'}
+                        </button>
+                    </div>
+                `; 
+                
+                div.querySelector('.start-test-btn').onclick = () => startTest(teacherId, testId, test); 
+                
+                // Add click listener for the share button
+                const shareButton = div.querySelector('.share-btn');
+                shareButton.onclick = async (e) => {
+                    e.stopPropagation(); // Prevent the main test-item click behavior
+                    try {
+                        await navigator.clipboard.writeText(testShareLink);
+                        const originalIcon = shareButton.innerHTML;
+                        shareButton.innerHTML = `<i class="fas fa-check"></i>`; // Show checkmark for feedback
+                        setTimeout(() => { shareButton.innerHTML = originalIcon; }, 1500); // Revert after 1.5 seconds
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        alert('فشل نسخ الرابط. يرجى النسخ يدوياً: ' + testShareLink);
+                    }
+                };
+
+                availableTestsContainer.appendChild(div); 
+            }); 
+        }); 
+        if (!testsFound) { 
+            availableTestsContainer.innerHTML = "<p>لا توجد اختبارات مطابقة.</p>"; 
+        } 
+    }
+
     function loadStudentResults() { studentResultsContainer.innerHTML = ""; const resultsArray = Object.values(studentTakenTests).sort((a, b) => b.timestamp - a.timestamp); if (resultsArray.length === 0) { studentResultsContainer.innerHTML = "<p>لم تحل أي اختبار بعد.</p>"; return; } resultsArray.forEach(result => { const date = new Date(result.timestamp).toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' }); const div = document.createElement("div"); div.style = "background: var(--item-bg); padding: 10px; border-radius: 8px; margin-bottom: 8px; border-right: 3px solid var(--accent-color)"; div.innerHTML = `<strong>${result.testName}</strong> - الدرجة: <strong>${result.score}</strong><br><small>${date}</small>`; studentResultsContainer.appendChild(div); }); }
     async function saveUser(name, password) { const userRef = ref(db, `students/${name}`); if ((await get(userRef)).exists()) { alert("اسم المستخدم هذا موجود بالفعل."); return false; } await set(userRef, { password: password }); return true; }
     async function verifyUser(name, password) { const snapshot = await get(ref(db, `students/${name}`)); return snapshot.exists() && snapshot.val().password === password; }
     function formatTime(seconds) { const minutes = Math.floor(seconds / 60); const remainingSeconds = seconds % 60; return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`; }
     
-    // ** THE ONLY UPDATED FUNCTION IS HERE **
     function startTest(teacherId, testId, testData) {
-        if (studentTakenTests[testId]) {
-            alert("تنبيه: هذه محاولة للمراجعة فقط. نتيجتك الأولى هي التي سيتم احتسابها.");
+        if (studentTakenTests[testId] && testData.allowRetake !== true) { // Added check for allowRetake if you implement it
+            alert("تنبيه: لقد أكملت هذا الاختبار مسبقًا. هذه محاولة للمراجعة فقط، ولن يتم تحديث نتيجتك الأصلية.");
         }
         currentTest = { ...testData, id: testId, teacherId: teacherId };
         currentTestTitle.textContent = currentTest.name;
         let currentTestDuration = currentTest.duration * 60;
         
         questionsDisplay.innerHTML = "";
-        // Ensure questions exist and is an array before proceeding
         if (currentTest.questions && Array.isArray(currentTest.questions)) {
             currentTest.questions.forEach((q, qIndex) => {
                 const questionDiv = document.createElement("div");
@@ -146,7 +271,6 @@
                 
                 let questionHTML = `<h4>السؤال ${qIndex + 1}: ${q.question}</h4>`;
                 
-                // Display the image if it exists in the question object
                 if (q.image) {
                     questionHTML += `<img src="${q.image}" alt="صورة السؤال" style="max-width: 100%; border-radius: 10px; margin-top: 10px; margin-bottom: 15px;">`;
                 }
@@ -178,10 +302,78 @@
         showSection(takeTestSection);
     }
     
-    async function submitTest(timeUp = false) { clearInterval(testInterval); if (timeUp) alert("انتهى وقت الاختبار!"); let answers = {}; currentTest.questions.forEach((q, qIndex) => { const checked = document.querySelector(`input[name="question-${qIndex}"]:checked`); if (checked) answers[qIndex] = parseInt(checked.value); }); let score = 0; currentTest.questions.forEach((q, qIndex) => { if (answers[qIndex] === q.correct) score++; }); const percentage = (score / currentTest.questions.length) * 100; let feedbackText, feedbackClass; if (percentage === 100) { feedbackText = "مذهل! لقد حصلت على الدرجة الكاملة! 🤩"; feedbackClass = "success"; } else if (percentage >= 80) { feedbackText = "عمل رائع! نتيجتك ممتازة! ✨"; feedbackClass = "good"; } else if (percentage >= 50) { feedbackText = "نتيجة جيدة! استمر بالتقدم! 👍"; feedbackClass = "average"; } else { feedbackText = "لا تقلق! كل اختبار فرصة للتعلم. 💪"; feedbackClass = "poor"; } retakeMessage.classList.add('hidden'); if (studentTakenTests[currentTest.id]) { retakeMessage.textContent = "هذه محاولة للمراجعة. تم الاحتفاظ بنتيجتك الأولى."; retakeMessage.classList.remove('hidden'); } else { const resultData = { testName: currentTest.name, teacherName: currentTest.teacherId, score: `${score}/${currentTest.questions.length}`, timestamp: serverTimestamp() }; await set(ref(db, `studentResults/${currentStudent}/${currentTest.id}`), resultData); await set(ref(db, `results/${currentTest.teacherId}/${currentTest.id}/${currentStudent}`), resultData.score); studentTakenTests[currentTest.id] = resultData; } finalScoreDisplay.textContent = `درجتك: ${score} من ${currentTest.questions.length}`; feedbackMessage.className = ``; feedbackMessage.classList.add(feedbackClass); feedbackMessage.textContent = feedbackText; showSection(testResultSection); }
-    function cancelTest() { if (confirm("هل أنت متأكد من إلغاء الاختبار؟ سيتم فقدان تقدمك.")) { clearInterval(testInterval); showSection(studentDashboardSection); } }
-    document.getElementById('login-btn').onclick = async () => { const name = document.getElementById("login-name").value.trim(); const password = document.getElementById("login-password").value.trim(); if (!name || !password) return alert("الرجاء تعبئة الاسم وكلمة المرور."); if (await verifyUser(name, password)) { currentStudent = name; localStorage.setItem("loggedInStudent", currentStudent); showSection(studentDashboardSection); updateDashboard(); } else { alert("اسم المستخدم أو كلمة المرور غير صحيحة."); } };
-    document.getElementById('register-btn').onclick = async () => { const name = document.getElementById("register-name").value.trim(); const password = document.getElementById("register-password").value.trim(); if(!name || !password) return alert("الرجاء تعبئة كل الحقول"); if (await saveUser(name, password)) { alert("تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول."); showSection(document.getElementById('login-section')); } };
+    async function submitTest(timeUp = false) { clearInterval(testInterval); if (timeUp) alert("انتهى وقت الاختبار!"); let answers = {}; currentTest.questions.forEach((q, qIndex) => { const checked = document.querySelector(`input[name="question-${qIndex}"]:checked`); if (checked) answers[qIndex] = parseInt(checked.value); }); let score = 0; currentTest.questions.forEach((q, qIndex) => { if (answers[qIndex] === q.correct) score++; }); const percentage = (score / currentTest.questions.length) * 100; let feedbackText, feedbackClass; if (percentage === 100) { feedbackText = "مذهل! لقد حصلت على الدرجة الكاملة! 🤩"; feedbackClass = "success"; } else if (percentage >= 80) { feedbackText = "عمل رائع! نتيجتك ممتازة! ✨"; feedbackClass = "good"; } else if (percentage >= 50) { feedbackText = "نتيجة جيدة! استمر بالتقدم! 👍"; feedbackClass = "average"; } else { feedbackText = "لا تقلق! كل اختبار فرصة للتعلم. 💪"; feedbackClass = "poor"; } retakeMessage.classList.add('hidden'); 
+        
+        // Only save score if it's the first attempt or if allowRetake is true
+        // For simplicity, we keep the original logic for now which only saves the first attempt
+        if (studentTakenTests[currentTest.id]) { 
+            retakeMessage.textContent = "هذه محاولة للمراجعة. تم الاحتفاظ بنتيجتك الأولى."; 
+            retakeMessage.classList.remove('hidden'); 
+        } else { 
+            const resultData = { testName: currentTest.name, teacherName: currentTest.teacherId, score: `${score}/${currentTest.questions.length}`, timestamp: serverTimestamp() }; 
+            await set(ref(db, `studentResults/${currentStudent}/${currentTest.id}`), resultData); 
+            await set(ref(db, `results/${currentTest.teacherId}/${currentTest.id}/${currentStudent}`), resultData.score); 
+            studentTakenTests[currentTest.id] = resultData; 
+        } 
+        finalScoreDisplay.textContent = `درجتك: ${score} من ${currentTest.questions.length}`; 
+        feedbackMessage.className = ``; 
+        feedbackMessage.classList.add(feedbackClass); 
+        feedbackMessage.textContent = feedbackText; 
+        showSection(testResultSection); 
+    }
+
+    function cancelTest() { if (confirm("هل أنت متأكد من إلغاء الاختبار؟ سيتم فقدان تقدمك.")) { clearInterval(testInterval); showSection(studentDashboardSection); updateDashboard(); } } // Added updateDashboard to refresh the list
+
+    // Helper function to attempt deep link start
+    async function attemptDeepLinkStart() {
+        if (deepLinkInfo && currentStudent && Object.keys(allTestsData).length > 0) {
+            const { testId, teacherId } = deepLinkInfo;
+            const testToStart = allTestsData[teacherId]?.[testId];
+            
+            if (testToStart) {
+                // Ensure the student dashboard is active before starting the test
+                // This prevents issues if the app isn't fully initialized on page load
+                if(document.getElementById('student-dashboard-section').classList.contains('hidden')) {
+                    showSection(studentDashboardSection);
+                }
+                startTest(teacherId, testId, testToStart);
+                deepLinkInfo = null; // Clear deep link after attempting to start
+            } else {
+                alert("عذراً، الاختبار المحدد بالرابط غير موجود أو المعلم غير صحيح.");
+                deepLinkInfo = null; // Clear deep link if not found
+            }
+        }
+    }
+
+    document.getElementById('login-btn').onclick = async () => { 
+        const name = document.getElementById("login-name").value.trim(); 
+        const password = document.getElementById("login-password").value.trim(); 
+        if (!name || !password) return alert("الرجاء تعبئة الاسم وكلمة المرور."); 
+        
+        if (await verifyUser(name, password)) { 
+            currentStudent = name; 
+            localStorage.setItem("loggedInStudent", currentStudent); 
+            showSection(studentDashboardSection); 
+            await updateDashboard(); // Ensure tests are loaded AFTER login
+            
+            // After successful login and dashboard update, attempt deep link start
+            attemptDeepLinkStart();
+        } else { 
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة."); 
+        } 
+    };
+
+    document.getElementById('register-btn').onclick = async () => { 
+        const name = document.getElementById("register-name").value.trim(); 
+        const password = document.getElementById("register-password").value.trim(); 
+        if(!name || !password) return alert("الرجاء تعبئة كل الحقول"); 
+        
+        if (await saveUser(name, password)) { 
+            alert("تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول."); 
+            showSection(document.getElementById('login-section')); 
+        } 
+    };
+
     logoutIcon.onclick = () => { if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) { currentStudent = null; localStorage.removeItem("loggedInStudent"); showSection(document.getElementById('login-section')); logoutIcon.classList.add('hidden'); } };
     searchBar.addEventListener('input', (e) => renderAvailableTests(e.target.value));
     document.getElementById('submit-test-btn').onclick = () => submitTest(false);
@@ -189,7 +381,32 @@
     document.getElementById('back-to-dashboard-btn').onclick = () => { showSection(studentDashboardSection); updateDashboard(); };
     document.getElementById('to-login').onclick = (e) => { e.preventDefault(); showSection(document.getElementById('login-section')); };
     document.getElementById('to-register').onclick = (e) => { e.preventDefault(); showSection(document.getElementById('register-section')); };
-    window.onload = () => { const savedStudent = localStorage.getItem("loggedInStudent"); if (savedStudent) { currentStudent = savedStudent; showSection(studentDashboardSection); updateDashboard(); } else { showSection(document.getElementById('register-section')); } };
+    
+    // --- Initial Load Logic ---
+    window.onload = async () => { 
+        const savedStudent = localStorage.getItem("loggedInStudent"); 
+
+        // 1. Check for deep link parameters in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const testIdParam = urlParams.get('testId');
+        const teacherIdParam = urlParams.get('teacherId');
+
+        if (testIdParam && teacherIdParam) {
+            deepLinkInfo = { testId: testIdParam, teacherId: teacherIdParam };
+            // Clear URL parameters to prevent re-triggering on refresh
+            history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        // 2. Handle logged-in state
+        if (savedStudent) { 
+            currentStudent = savedStudent; 
+            showSection(studentDashboardSection); 
+            await updateDashboard(); // Loads tests and results, then calls attemptDeepLinkStart
+        } else { 
+            showSection(document.getElementById('register-section')); 
+            // If there's a deep link but no logged-in user, we'll wait for login to handle it.
+        } 
+    };
   </script>
 </body>
 </html>

@@ -1,619 +1,980 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>منصة الاختبارات - الطالب</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>منصة الاختبارات - الطالب</title>
 
-  <!-- PWA Meta Tags -->
-  <link rel="manifest" href="./manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="الاختبارات">
-  <link rel="apple-touch-icon" href="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png">
-  <meta name="theme-color" content="#3081f7">
+<!-- ==== PWA Meta Tags ==== -->
+<link rel="manifest" href="./manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="الاختبارات">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png">
+<meta name="theme-color" content="#3081f7">
 
-  <!-- Open Graph Meta Tags for social sharing -->
-  <meta property="og:title" content="منصة الاختبارات التعليمية للطلاب" />
-  <meta property="og:description" content="منصة متكاملة للطلاب لإجراء الاختبارات ومراجعة النتائج بسهولة وفعالية." />
-  <meta property="og:image" content="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png" />
-  <meta property="og:url" content="https://saif1230876657.github.io/saifSAR2/" />
-  <meta property="og:type" content="website" />
+<!-- ==== Open Graph & Twitter Meta Tags for Social Sharing ==== -->
+<meta property="og:title" content="منصة الاختبارات التعليمية للطلاب" />
+<meta property="og:description" content="منصة متكاملة للطلاب لإجراء الاختبارات ومراجعة النتائج بسهولة وفعالية." />
+<meta property="og:image" content="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png" />
+<meta property="og:url" content="https://saif1230876657.github.io/saifSAR2/" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="منصة الاختبارات التعليمية للطلاب">
+<meta name="twitter:description" content="منصة متكاملة للطلاب لإجراء الاختبارات ومراجعة النتائج بسهولة وفعالية.">
+<meta name="twitter:image" content="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png">
 
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="منصة الاختبارات التعليمية للطلاب">
-  <meta name="twitter:description" content="منصة متكاملة للطلاب لإجراء الاختبارات ومراجعة النتائج بسهولة وفعالية.">
-  <meta name="twitter:image" content="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png">
+<!-- ==== Fonts and Icons ==== -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Fonts and Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    /* --- CSS Variables (Themes) --- */
-    :root {
-      /* Light Mode */
-      --bg-color: #f0f2f5; --container-bg: rgba(255, 255, 255, 0.85); --text-color: #1c1e21; --header-color: #005a9c; --accent-color: #007bff; --accent-rgb: 0, 123, 255; --accent-glow: rgba(var(--accent-rgb), 0.5); --input-bg: #ffffff; --input-border: #ccd0d5; --item-bg: #ffffff; --item-hover-bg: #f5f5f5; --shadow-color: rgba(0, 0, 0, 0.1); --success-color: #28a745; --warning-color: #ffc107; --danger-color: #dc3545;
-    }
-    [data-theme="dark"] {
-      /* Dark Mode */
-      --bg-color: #0d1117; --container-bg: rgba(22, 27, 34, 0.8); --text-color: #c9d1d9; --header-color: #58a6ff; --accent-color: #3081f7; --accent-rgb: 48, 129, 247; --accent-glow: rgba(var(--accent-rgb), 0.5); --input-bg: #0d1117; --input-border: #30363d; --item-bg: #161b22; --item-hover-bg: #21262d; --shadow-color: rgba(0, 0, 0, 0.4); --success-color: #3fb950; --warning-color: #e3b341; --danger-color: #f85149;
-    }
+<style>
+/* -------------------------------------------------
+   1️⃣ CSS Variables (Light/Dark Themes)
+   ------------------------------------------------- */
+:root{
+    --bg-color:#f5f7fa;
+    --container-bg:rgba(255,255,255,.85);
+    --text-color:#2c3e50;
+    --header-color:#34495e;
+    --accent-color:#2ecc71;
+    --accent-rgb:46,204,113;
+    --accent-glow:rgba(var(--accent-rgb),.3);
+    --input-bg:#fff;
+    --input-border:#dcdfe6;
+    --item-bg:#fff;
+    --item-hover-bg:#f1f5f9;
+    --shadow-color:rgba(0,0,0,.15);
+    --success-color:#27ae60;
+    --warning-color:#f1c40f;
+    --danger-color:#e74c3c;
+    --border-radius:12px;
+}
+[data-theme="dark"]{
+    --bg-color:#0d1117;
+    --container-bg:rgba(22,27,34,.85);
+    --text-color:#c9d1d9;
+    --header-color:#58a6ff;
+    --accent-color:#3081f7;
+    --accent-rgb:48,129,247;
+    --accent-glow:rgba(var(--accent-rgb),.3);
+    --input-bg:#1a1c20;
+    --input-border:#30363d;
+    --item-bg:#161b22;
+    --item-hover-bg:#21262d;
+    --shadow-color:rgba(0,0,0,.45);
+    --success-color:#3fb950;
+    --warning-color:#e3b341;
+    --danger-color:#f85149;
+}
 
-    /* --- General Styles & Layout --- */
-    *, *::before, *::after { box-sizing: border-box; }
-    body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; direction: rtl; transition: background-color 0.5s ease, color 0.5s ease; overflow: hidden; }
-    body::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 40%), radial-gradient(circle, var(--header-color) 0%, transparent 50%); background-size: 200% 200%; animation: aurora 20s linear infinite; z-index: -1; }
-    @keyframes aurora { from { background-position: 0% 0%; } to { background-position: -200% -200%; } }
-    .container { background: var(--container-bg); backdrop-filter: blur(15px) saturate(180%); -webkit-backdrop-filter: blur(15px) saturate(180%); padding: 30px 25px 120px 25px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; max-width: 500px; min-height: 95vh; max-height: 95vh; overflow-y: auto; box-shadow: 0 8px 32px 0 var(--shadow-color); display: flex; flex-direction: column; position: relative; }
-    section, .tab-content { animation: fadeIn 0.6s ease-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .hidden { display: none !important; }
-    h1, h2, h3, h4 { text-align: center; margin-bottom: 25px; font-weight: 700; color: var(--header-color); text-shadow: 0 0 10px var(--accent-glow); }
-    h4 { font-size: 1.1rem; }
-    p { text-align: center; margin-top: 15px; margin-bottom: 22px; font-size: 0.9rem; } p a { color: var(--accent-color); text-decoration: none; font-weight: 600; } hr { border-top: 1px solid var(--input-border); margin: 25px 0; }
-    .spinner { border: 4px solid var(--input-border); border-top: 4px solid var(--accent-color); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+/* -------------------------------------------------
+   2️⃣ General Layout & Animated Background
+   ------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+body{
+    margin:0; padding:0;
+    min-height:100vh;
+    font-family:'Cairo',sans-serif;
+    background:var(--bg-color);
+    color:var(--text-color);
+    overflow:hidden;
+    direction:rtl;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:background .5s,color .5s;
+}
+body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:linear-gradient(-45deg, var(--accent-color), var(--header-color), #86a8e7, #91eae4);
+    background-size:400% 400%;
+    animation:bgGradient 20s ease infinite;
+    z-index:-2;
+    opacity: 0.7;
+}
+@keyframes bgGradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+.container{
+    width:95%; max-width:500px;
+    height: 95vh;
+    margin: auto;
+    background:var(--container-bg);
+    backdrop-filter:blur(15px) saturate(180%);
+    -webkit-backdrop-filter:blur(15px) saturate(180%);
+    padding:30px 25px 120px 25px;
+    border-radius:20px;
+    box-shadow:0 8px 32px var(--shadow-color);
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+section, .tab-content { animation: fadeIn 0.6s ease-out; } 
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } } 
+.hidden { display: none !important; }
 
-    /* --- Buttons & Inputs --- */
-    input[type="text"], input[type="password"] { width: 100%; padding: 14px 15px; margin-bottom: 22px; border: 1px solid var(--input-border); border-radius: 10px; font-size: 1rem; font-family: 'Cairo', sans-serif; background: var(--input-bg); color: var(--text-color); transition: all 0.3s ease; }
-    input[type="text"]:focus, input[type="password"]:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 0 3px var(--accent-glow); }
-    button { width: 100%; padding: 14px 15px; margin-top: 10px; margin-bottom: 22px; border: none; border-radius: 10px; font-size: 1.1rem; font-family: 'Cairo', sans-serif; font-weight: 700; background: linear-gradient(45deg, var(--accent-color), var(--header-color)); color: #fff; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px var(--shadow-color); }
-    button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--accent-glow); }
+/* -------------------------------------------------
+   3️⃣ Header
+   ------------------------------------------------- */
+.app-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    color:var(--header-color);
+}
+.app-title{
+    font-size:1.5rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+}
+.app-title i{
+    font-size:1.8rem;
+    color:var(--accent-color);
+    animation:pulse 3s ease-in-out infinite;
+}
+@keyframes pulse{
+    0%{text-shadow:0 0 5px var(--accent-glow);}
+    50%{text-shadow:0 0 15px var(--accent-glow);}
+    100%{text-shadow:0 0 5px var(--accent-glow);}
+}
+.header-actions{ display:flex; gap:12px; }
+.icon-btn{
+    width:40px; height:40px;
+    border-radius:50%;
+    background:var(--item-bg);
+    border:1px solid var(--input-border);
+    color:var(--text-color);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition: all .3s ease;
+}
+.icon-btn:hover{
+    background:var(--accent-glow);
+    color:var(--accent-color);
+    transform: translateY(-2px);
+}
+#theme-toggle .fa-sun { display: none; } #theme-toggle .fa-moon { display: block; } 
+[data-theme="dark"] #theme-toggle .fa-sun { display: block; } [data-theme="dark"] #theme-toggle .fa-moon { display: none; }
 
-    /* --- Header & Icons --- */
-    .header-icons { position: absolute; top: 20px; left: 25px; display: flex; gap: 15px; z-index: 100; }
-    .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--item-bg); border: 1px solid var(--input-border); color: var(--text-color); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.3s ease; }
-    .icon-btn:hover { transform: translateY(-3px) scale(1.1); color: var(--accent-color); box-shadow: 0 0 15px var(--accent-glow); }
-    #theme-toggle .fa-sun { display: none; } #theme-toggle .fa-moon { display: block; } [data-theme="dark"] #theme-toggle .fa-sun { display: block; } [data-theme="dark"] #theme-toggle .fa-moon { display: none; }
+/* -------------------------------------------------
+   4️⃣ Floating Label Inputs
+   ------------------------------------------------- */
+.form-group{
+    position:relative;
+    margin-bottom:22px;
+}
+.form-group input{
+    box-sizing: border-box;
+    width:100%;
+    padding:14px 12px;
+    background:var(--input-bg);
+    border:1px solid var(--input-border);
+    border-radius:var(--border-radius);
+    font-size:1rem;
+    color:var(--text-color);
+    outline:none;
+    transition:.2s;
+}
+.form-group input:focus{
+    border-color:var(--accent-color);
+    box-shadow:0 0 0 3px var(--accent-glow);
+}
+.form-group label{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--input-border);
+    pointer-events:none;
+    transition:.2s;
+    background:var(--input-bg);
+    padding:0 4px;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label{
+    top:-10px;
+    right:10px;
+    font-size:.8rem;
+    color:var(--accent-color);
+}
 
-    /* --- Search & Test List --- */
-    .search-container { position: relative; margin-bottom: 25px; } .search-container .fa-search { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: var(--input-border); transition: color 0.3s ease; } #search-bar { padding-right: 40px; background: var(--input-bg); } .search-container:focus-within .fa-search { color: var(--accent-color); } .search-container:focus-within #search-bar { box-shadow: 0 0 10px var(--accent-glow), inset 0 0 5px var(--accent-glow); }
-    .test-item { background: var(--item-bg); padding: 15px 20px; margin-bottom: 22px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--input-border); box-shadow: 0 2px 5px var(--shadow-color); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-    .test-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 25px var(--shadow-color); border-color: var(--accent-color); }
-    .test-item.completed { border-right: 5px solid var(--success-color); } 
-    .test-item button { width: auto; padding: 8px 16px; font-size: 0.9rem; margin: 0; }
-    .test-item .share-btn { background: var(--item-bg); border: 1px solid var(--input-border); color: var(--text-color); padding: 8px; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all 0.3s ease; margin-right: 10px; box-shadow: none; }
-    .test-item .share-btn:hover { transform: translateY(-2px) scale(1.05); color: var(--accent-color); box-shadow: 0 0 10px var(--accent-glow); border-color: var(--accent-color); }
-    .test-item > div:last-child { display: flex; align-items: center; gap: 10px; }
+/* -------------------------------------------------
+   5️⃣ Buttons & General UI Elements
+   ------------------------------------------------- */
+button{
+    position:relative;
+    overflow:hidden;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:var(--border-radius);
+    font-size:1.1rem;
+    font-weight:700;
+    color:#fff;
+    background:linear-gradient(45deg,var(--accent-color),var(--header-color));
+    cursor:pointer;
+    box-shadow:0 4px 12px var(--shadow-color);
+    transition:.3s;
+}
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 20px var(--accent-glow);
+}
+button.secondary{
+    background:var(--item-bg);
+    color:var(--text-color);
+    border: 1px solid var(--input-border);
+}
+button.secondary:hover{
+    background:var(--item-hover-bg);
+}
+p{ text-align:center; margin:15px 0 22px; font-size:.9rem; }
+p a{ color:var(--accent-color); text-decoration:none; font-weight:600; }
+p a:hover{ text-decoration:underline; }
+hr{ border-top:1px solid var(--input-border); margin:25px 0; }
+.spinner{ border:4px solid var(--input-border); border-top:4px solid var(--accent-color); border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin:20px auto; }
+@keyframes spin{to{transform:rotate(360deg);}}
 
-    /* --- Question & Answer Styles --- */
-    .question-options label { background: var(--item-bg); padding: 12px 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--input-border); color: var(--text-color); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; } 
-    .question-options label:hover { border-color: var(--accent-color); background: var(--item-hover-bg); } 
-    .question-options input[type="radio"] { margin-left: 10px; } 
-    .question-options input[type="radio"]:checked + span { color: var(--accent-color); font-weight: bold; }
+/* -------------------------------------------------
+   6️⃣ Dashboard: Search & Test List
+   ------------------------------------------------- */
+.search-container{ position:relative; margin-bottom:20px; }
+.search-container input{ width:100%; padding:12px 40px 12px 14px; border:1px solid var(--input-border); border-radius:var(--border-radius); background:var(--input-bg); color:var(--text-color); }
+.search-container .fa-search{ position:absolute; right:15px; top:50%; transform:translateY(-50%); color:var(--input-border); transition:.2s; }
+.search-container input:focus{ border-color:var(--accent-color); box-shadow:0 0 0 3px var(--accent-glow); }
+.search-container input:focus + .fa-search{ color:var(--accent-color); }
 
-    /* --- Feedback & Result Messages --- */
-    #feedback-message { font-size: 1.2rem; padding: 20px; border-radius: 12px; margin-top: 15px; font-weight: 600; text-align: center; } 
-    #feedback-message.success { background: var(--success-color); color: #fff; } 
-    #feedback-message.good { background: var(--accent-color); color: #fff; } 
-    #feedback-message.average { background: var(--warning-color); color: #111; } 
-    #feedback-message.poor { background: var(--danger-color); color: #fff; }
+/* === MODIFIED TEST ITEM STYLES === */
+.test-item{
+    background:var(--item-bg);
+    padding: 12px 15px; /* تقليل الحشو الداخلي */
+    margin-bottom: 15px; /* تقليل الهامش السفلي */
+    border:1px solid var(--input-border);
+    border-radius:var(--border-radius);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 2px 6px var(--shadow-color);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.test-item:hover{
+    transform:translateY(-4px) scale(1.01); /* تعديل طفيف على التأثير */
+    box-shadow:0 6px 15px var(--shadow-color);
+    border-color:var(--accent-color);
+}
+.test-item.completed{ border-right:5px solid var(--success-color); }
+.test-info{ flex:1; display:flex; align-items:center; gap: 12px; /* تقليل المسافة */}
+.test-emoji{ font-size: 1.5rem; /* تصغير حجم الإيموجي */ }
+.test-body strong{ font-size: 0.95rem; /* تصغير الخط الرئيسي */ color:var(--header-color); }
+.test-body small{ font-size: 0.75rem; /* تصغير الخط الفرعي */ color:var(--text-color); }
+.test-actions{ display:flex; align-items:center; gap:8px; }
+.share-btn{ background:transparent; border:none; color:var(--text-color); width:36px;height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.2s; font-size: 1rem;}
+.share-btn:hover{ background:var(--accent-glow); color:var(--accent-color); }
+.start-test-btn{ padding: 6px 10px; font-size: 0.8rem; /* تصغير الزر */ min-width:auto; margin:0; box-shadow: none; }
+.start-test-btn.completed{ background:var(--warning-color); color:#111; }
 
-    /* --- Bottom Navigation --- */
-    .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: auto; display: flex; gap: 10px; padding: 10px; background: var(--container-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: 99px; border: 1px solid var(--input-border); box-shadow: 0 8px 32px 0 var(--shadow-color); z-index: 1000; transition: bottom 0.3s ease, opacity 0.3s ease; }
-    .bottom-nav.hidden { bottom: -100px; opacity: 0; } 
-    .nav-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: transparent; border: none; color: var(--text-color); opacity: 0.7; border-radius: 99px; font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; } 
-    .nav-btn.active { opacity: 1; background: rgba(var(--accent-rgb), 0.15); color: var(--accent-color); box-shadow: 0 0 15px -5px var(--accent-glow); }
 
-    /* --- Custom Alerts & Toasts --- */
-    .custom-alert-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.5); z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-    .custom-alert-container.show { opacity: 1; visibility: visible; }
-    .custom-alert { background: var(--item-bg); border-radius: 12px; padding: 25px 30px; margin: 20px; max-width: 400px; text-align: center; box-shadow: 0 8px 25px var(--shadow-color); transform: translateY(20px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; display: flex; flex-direction: column; align-items: center; }
-    .custom-alert-container.show .custom-alert { transform: translateY(0); opacity: 1; }
-    .custom-alert-icon { font-size: 3rem; margin-bottom: 15px; }
-    .custom-alert.success .custom-alert-icon { color: var(--success-color); } .custom-alert.error .custom-alert-icon { color: var(--danger-color); } .custom-alert.warning .custom-alert-icon { color: var(--warning-color); } .custom-alert.info .custom-alert-icon { color: var(--accent-color); }
-    .custom-alert-message { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
-    .custom-alert-close-btn { background: var(--accent-color); color: #fff; border: none; padding: 10px 25px; border-radius: 8px; font-family: 'Cairo', sans-serif; font-weight: 700; cursor: pointer; transition: background 0.3s ease; width: 100%; }
-    .custom-alert-close-btn:hover { background: var(--header-color); }
-    .toast-container { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; z-index: 10000; pointer-events: none; }
-    .toast { background: var(--container-bg); color: var(--text-color); padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 15px var(--shadow-color); margin-bottom: 10px; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; min-width: 200px; text-align: center; font-size: 0.9rem; }
-    .toast.show { opacity: 1; transform: translateY(0); }
-    .toast.success { border: 1px solid var(--success-color); } .toast.error { border: 1px solid var(--danger-color); } .toast.info { border: 1px solid var(--accent-color); }
+/* -------------------------------------------------
+   7️⃣ Test Taking Interface
+   ------------------------------------------------- */
+.timer-display{ font-size:1.6rem; font-weight:700; text-align:center; color:var(--warning-color); margin-bottom:8px; }
+.timer-bar{ width:100%; height:6px; background:var(--item-bg); border-radius:3px; overflow:hidden; margin-bottom:20px; }
+.timer-progress{ height:100%; width:100%; background:var(--accent-color); transition:width .5s linear; }
+.question-options label{ display:flex; align-items:center; gap:12px; background:var(--item-bg); border:1px solid var(--input-border); border-radius:var(--border-radius); padding:12px 15px; margin-bottom:10px; cursor:pointer; transition:.2s; }
+.question-options label:hover{ border-color:var(--accent-color); background:var(--item-hover-bg); }
+.question-options input[type=radio]{ accent-color:var(--accent-color); width: 1.2em; height: 1.2em; }
+.question-options input[type="radio"]:checked + span { color: var(--accent-color); font-weight: bold; }
 
-    /* --- PWA Install Banner Styles --- */
-    .install-banner { position: fixed; top: -150px; left: 50%; transform: translateX(-50%); width: calc(100% - 30px); max-width: 480px; background: var(--container-bg); backdrop-filter: blur(15px) saturate(180%); -webkit-backdrop-filter: blur(15px) saturate(180%); border-radius: 12px; box-shadow: 0 8px 32px 0 var(--shadow-color); border: 1px solid var(--input-border); padding: 12px 15px; z-index: 10001; display: flex; justify-content: space-between; align-items: center; transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .install-banner.show { top: 15px; }
-    .install-banner-content { display: flex; align-items: center; gap: 15px; }
-    .install-banner-content img { width: 40px; height: 40px; border-radius: 8px; }
-    .install-banner-content div { display: flex; flex-direction: column; }
-    .install-banner-content strong { font-weight: 700; font-size: 1rem; color: var(--text-color); margin: 0; padding: 0; }
-    .install-banner-content p { font-size: 0.85rem; color: var(--text-color); opacity: 0.8; margin: 0; padding: 0; text-align: right; }
-    .install-banner-actions { display: flex; align-items: center; gap: 10px; }
-    #install-app-btn { background: linear-gradient(45deg, var(--accent-color), var(--header-color)); color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: none; margin: 0; width: auto; }
-    #install-app-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px -5px var(--accent-glow); }
-    #close-install-banner-btn { background: transparent; border: none; color: var(--text-color); font-size: 2rem; font-weight: 300; line-height: 1; cursor: pointer; opacity: 0.6; transition: opacity 0.3s ease; padding: 0 5px; margin: 0; width: auto; box-shadow: none; }
-    #close-install-banner-btn:hover { opacity: 1; transform: none; box-shadow: none; }
-  </style>
+/* -------------------------------------------------
+   8️⃣ Results & Feedback
+   ------------------------------------------------- */
+#final-score{ font-size:1.6rem; margin:15px 0; text-align:center; }
+.retake-message{ background:rgba(var(--warning-color),.1); border:1px solid var(--warning-color); border-radius:var(--border-radius); padding:8px 12px; text-align:center; margin-bottom:12px; }
+#feedback-message{ padding:15px; border-radius:var(--border-radius); text-align:center; margin-top:15px; font-weight:600; font-size: 1.1rem; }
+#feedback-message.success{background:var(--success-color);color:#fff;}
+#feedback-message.good{background:var(--accent-color);color:#fff;}
+#feedback-message.average{background:var(--warning-color);color:#111;}
+#feedback-message.poor{background:var(--danger-color);color:#fff;}
+
+/* -------------------------------------------------
+   9️⃣ Bottom Navigation
+   ------------------------------------------------- */
+.bottom-nav{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:12px;
+    background:var(--container-bg);
+    backdrop-filter:blur(15px) saturate(180%);
+    -webkit-backdrop-filter:blur(15px) saturate(180%);
+    padding:8px 12px;
+    border-radius:30px;
+    box-shadow:0 8px 32px var(--shadow-color);
+    border:1px solid var(--input-border);
+    z-index:1000;
+}
+.bottom-nav.hidden{display:none;}
+.nav-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:transparent;
+    border:none;
+    color:var(--text-color);
+    opacity:.7;
+    font-size:1rem;
+    padding:8px 15px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.2s;
+    width: auto;
+    margin: 0;
+    box-shadow: none;
+}
+.nav-btn.active,
+.nav-btn:hover{
+    background:rgba(var(--accent-rgb),.15);
+    color:var(--accent-color);
+    opacity:1;
+}
+
+/* -------------------------------------------------
+   10️⃣ Custom Alerts & Toasts
+   ------------------------------------------------- */
+.custom-alert-container{ position:fixed; inset:0; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,.5); opacity:0; visibility:hidden; transition:opacity .3s; z-index:9999; }
+.custom-alert-container.show{ opacity:1; visibility:visible; }
+.custom-alert{ background:var(--item-bg); border-radius:var(--border-radius); padding:25px 30px; margin: 20px; max-width:380px; text-align:center; box-shadow:0 8px 25px var(--shadow-color); transform:translateY(-20px); opacity:0; transition:transform .3s,opacity .3s; }
+.custom-alert-container.show .custom-alert{ transform:translateY(0); opacity:1; }
+.custom-alert-icon{ font-size:3rem; margin-bottom:15px; }
+.custom-alert.success .custom-alert-icon{color:var(--success-color);}
+.custom-alert.error .custom-alert-icon{color:var(--danger-color);}
+.custom-alert.warning .custom-alert-icon{color:var(--warning-color);}
+.custom-alert.info .custom-alert-icon{color:var(--accent-color);}
+.custom-alert-message{ font-size:1.1rem; line-height: 1.5; margin-bottom:20px; }
+.custom-alert-close-btn{ width: auto; padding: 10px 30px; margin: 0; }
+.toast-container{ position:fixed; bottom:120px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; z-index:10000; pointer-events:none; }
+.toast{ background:var(--item-bg); color:var(--text-color); padding:10px 20px; border-radius:var(--border-radius); box-shadow:0 4px 12px var(--shadow-color); opacity:0; transform:translateY(20px); transition:.3s; border-right: 4px solid; }
+.toast.show{opacity:1;transform:translateY(0);}
+.toast.success{border-color: var(--success-color);}
+.toast.error{border-color: var(--danger-color);}
+.toast.info{border-color: var(--accent-color);}
+
+/* -------------------------------------------------
+   11️⃣ PWA Install Banner (MODIFIED)
+   ------------------------------------------------- */
+.install-banner{
+    position:fixed;
+    top:-100px; /* يبدأ من الأعلى خارج الشاشة */
+    left:0; /* يبدأ من الحافة اليسرى */
+    width:100%; /* عرض كامل */
+    transform: none; /* لا حاجة للتحويل الأفقي */
+    background:var(--container-bg);
+    backdrop-filter:blur(15px) saturate(180%);
+    -webkit-backdrop-filter:blur(15px) saturate(180%);
+    border-radius: 0; /* بدون حواف دائرية */
+    box-shadow:0 8px 32px var(--shadow-color);
+    border: none; /* لا حاجة للحدود */
+    border-bottom: 1px solid var(--input-border);
+    padding:12px 20px;
+    z-index:10001;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:top .5s cubic-bezier(.175,.885,.32,1.275);
+}
+.install-banner.show{
+    top:0; /* يلتصق بأعلى الشاشة */
+}
+.install-banner-content{ display:flex; align-items:center; gap:15px; }
+.install-banner-content img{width:40px;height:40px;border-radius:8px;}
+.install-banner-content div{ display:flex; flex-direction:column; }
+.install-banner-content strong{ font-weight:700; font-size:1rem; margin:0; padding:0; }
+.install-banner-content p{ font-size:.85rem; margin:0; padding:0; opacity:.8; text-align: right;}
+.install-banner-actions{ display:flex; align-items:center; gap:10px; }
+#install-app-btn{ padding:8px 18px; font-size:.9rem; margin: 0; width: auto; box-shadow: none; }
+#close-install-banner-btn{ background:transparent; border:none; color:var(--text-color); font-size:2rem; font-weight:300; opacity:.6; transition:.2s; cursor:pointer; line-height: 1; padding: 0 5px; box-shadow: none; width: auto; margin: 0; }
+#close-install-banner-btn:hover{opacity:1;}
+
+/* -------------------------------------------------
+   12️⃣ Custom Scrollbar
+   ------------------------------------------------- */
+::-webkit-scrollbar{ width:8px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:var(--accent-glow); border-radius:4px; }
+</style>
 </head>
 <body data-theme="dark">
 
-  <!-- PWA Install Banner -->
-  <div id="install-banner" class="install-banner">
+<!-- ==== PWA Install Banner ==== -->
+<div id="install-banner" class="install-banner">
     <div class="install-banner-content">
-      <img src="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png" alt="App Icon">
-      <div>
-        <strong>ثبت التطبيق</strong>
-        <p>لتجربة أفضل وأسرع على جهازك.</p>
-      </div>
+        <img src="https://i.postimg.cc/3RBYLnd3/818334fa-20ba-431a-ad38-6bec7ef02203.png" alt="App Icon">
+        <div>
+            <strong>ثبّت التطبيق</strong>
+            <p>لتجربة أفضل وأسرع على جهازك.</p>
+        </div>
     </div>
     <div class="install-banner-actions">
-      <button id="install-app-btn">تثبيت</button>
-      <button id="close-install-banner-btn">&times;</button>
+        <button id="install-app-btn">تثبيت</button>
+        <button id="close-install-banner-btn">&times;</button>
     </div>
-  </div>
+</div>
 
-  <!-- Main App Container -->
-  <div class="container">
+<div class="container">
+    <!-- ==== App Header ==== -->
+    <header class="app-header">
+        <div class="app-title"><i class="fas fa-graduation-cap"></i> منصة الاختبارات</div>
+        <div class="header-actions">
+            <div id="theme-toggle" class="icon-btn" title="تبديل الوضع"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></div>
+            <div id="logout-icon" class="icon-btn hidden" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></div>
+        </div>
+    </header>
 
-    <!-- Custom Alerts -->
+    <!-- ==== Custom Alert Container ==== -->
     <div id="custom-alert-container" class="custom-alert-container">
-      <div id="custom-alert" class="custom-alert">
-        <i id="custom-alert-icon" class="fas"></i>
-        <div id="custom-alert-message" class="custom-alert-message"></div>
-        <button id="custom-alert-close-btn" class="custom-alert-close-btn">موافق</button>
-      </div>
+        <div id="custom-alert" class="custom-alert">
+            <i id="custom-alert-icon" class="fas"></i>
+            <div id="custom-alert-message" class="custom-alert-message"></div>
+            <button id="custom-alert-close-btn" class="custom-alert-close-btn">موافق</button>
+        </div>
     </div>
 
-    <!-- Toast Notifications -->
+    <!-- ==== Toast Notifications Container ==== -->
     <div id="toast-container" class="toast-container"></div>
 
-    <!-- Header Icons -->
-    <div class="header-icons">
-      <div id="theme-toggle" class="icon-btn" title="تبديل الوضع"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></div>
-      <div id="logout-icon" class="icon-btn hidden" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></div>
-    </div>
-
-    <!-- Register Section -->
+    <!-- ==== Register Section ==== -->
     <section id="register-section">
-      <h1>تسجيل جديد</h1>
-      <input type="text" id="register-name" placeholder="الاسم الكامل" />
-      <input type="password" id="register-password" placeholder="كلمة المرور" />
-      <button id="register-btn">تسجيل</button>
-      <p>هل لديك حساب؟ <a href="#" id="to-login">تسجيل دخول</a></p>
-    </section>
-
-    <!-- Login Section -->
-    <section id="login-section" class="hidden">
-      <h1>تسجيل الدخول</h1>
-      <input type="text" id="login-name" placeholder="الاسم الكامل" />
-      <input type="password" id="login-password" placeholder="كلمة المرور" />
-      <button id="login-btn">دخول</button>
-      <p>ليس لديك حساب؟ <a href="#" id="to-register">تسجيل جديد</a></p>
-    </section>
-
-    <!-- Student Dashboard Section -->
-    <section id="student-dashboard-section" class="hidden">
-      <h1>مرحبًا بك، <span id="student-name"></span>!</h1>
-      <hr />
-      <div id="tests-content" class="tab-content">
-        <div class="search-container">
-          <i class="fas fa-search"></i>
-          <input type="text" id="search-bar" placeholder="ابحث عن اختبار..." />
+        <h1>تسجيل جديد</h1>
+        <div class="form-group">
+            <input type="text" id="register-name" placeholder=" " autocomplete="off">
+            <label for="register-name">الاسم الكامل</label>
         </div>
-        <h2>الاختبارات المتاحة</h2>
-        <div id="available-tests-container"></div>
-      </div>
-      <div id="results-content" class="tab-content hidden">
-        <h2>نتائجي السابقة</h2>
-        <div id="student-results-container"></div>
-      </div>
+        <div class="form-group">
+            <input type="password" id="register-password" placeholder=" " autocomplete="new-password">
+            <label for="register-password">كلمة المرور</label>
+        </div>
+        <button id="register-btn">تسجيل</button>
+        <p>هل لديك حساب؟ <a href="#" id="to-login">تسجيل دخول</a></p>
     </section>
 
-    <!-- Take Test Section -->
-    <section id="take-test-section" class="hidden">
-      <h2 id="current-test-title"></h2>
-      <div id="timer" style="font-size: 1.8rem; font-weight: 700; color: var(--warning-color); text-align: center; margin-bottom: 20px;"></div>
-      <div id="questions-display"></div>
-      <button id="submit-test-btn">تسليم الاختبار</button>
-      <button id="cancel-test-btn" style="background: var(--item-hover-bg); color: var(--text-color);">إلغاء الاختبار</button>
+    <!-- ==== Login Section ==== -->
+    <section id="login-section" class="hidden">
+        <h1>تسجيل الدخول</h1>
+        <div class="form-group">
+            <input type="text" id="login-name" placeholder=" " autocomplete="off">
+            <label for="login-name">الاسم الكامل</label>
+        </div>
+        <div class="form-group">
+            <input type="password" id="login-password" placeholder=" " autocomplete="current-password">
+            <label for="login-password">كلمة المرور</label>
+        </div>
+        <button id="login-btn">دخول</button>
+        <p>ليس لديك حساب؟ <a href="#" id="to-register">تسجيل جديد</a></p>
     </section>
 
-    <!-- Test Result Section -->
-    <section id="test-result-section" class="hidden">
-      <h1>نتيجتك</h1>
-      <h2 id="final-score" style="color: var(--header-color);"></h2>
-      <div id="retake-message" class="retake-message hidden" style="color: var(--warning-color); text-align: center; font-weight: bold; margin: 15px 0; padding: 10px; background: rgba(255, 193, 7, 0.1); border-radius: 8px; border: 1px solid var(--warning-color);"></div>
-      <div id="feedback-message"></div>
-      <button id="back-to-dashboard-btn">العودة للوحة التحكم</button>
-    </section>
-  </div>
-
-  <!-- Bottom Navigation Bar -->
-  <nav class="bottom-nav hidden" id="bottom-nav">
-    <button id="nav-tests-btn" class="nav-btn active" data-target="tests-content"><i class="fas fa-file-alt"></i><span>الاختبارات</span></button>
-    <button id="nav-results-btn" class="nav-btn" data-target="results-content"><i class="fas fa-poll-h"></i><span>نتائجي</span></button>
-  </nav>
-
-  <script type="module">
-    // --- Firebase Initialization ---
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
-    import { getDatabase, ref, set, onValue, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js";
-    const firebaseConfig = { apiKey: "AIzaSyAjE-2q6PONBkCin9ZN22gDp9Q8pAH9ZW8", authDomain: "story-97cf7.firebaseapp.com", databaseURL: "https://story-97cf7-default-rtdb.firebaseio.com", projectId: "story-97cf7", storageBucket: "story-97cf7.firebasestorage.app", messagingSenderId: "742801388214", appId: "1:742801388214:web:32a305a8057b0582c5ec17" };
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // --- DOM Element References ---
-    const allSections = document.querySelectorAll('section');
-    const studentDashboardSection = document.getElementById('student-dashboard-section');
-    const takeTestSection = document.getElementById('take-test-section');
-    const testResultSection = document.getElementById('test-result-section');
-    const logoutIcon = document.getElementById('logout-icon');
-    const studentNameSpan = document.getElementById("student-name");
-    const availableTestsContainer = document.getElementById("available-tests-container");
-    const studentResultsContainer = document.getElementById("student-results-container");
-    const bottomNav = document.getElementById('bottom-nav');
-    const currentTestTitle = document.getElementById("current-test-title");
-    const timerDisplay = document.getElementById("timer");
-    const questionsDisplay = document.getElementById("questions-display");
-    const finalScoreDisplay = document.getElementById("final-score");
-    const retakeMessage = document.getElementById("retake-message");
-    const feedbackMessage = document.getElementById("feedback-message");
-    const searchBar = document.getElementById("search-bar");
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    // --- App State ---
-    let currentStudent = null;
-    let studentTakenTests = {};
-    let allTestsData = {};
-    let currentTest = null;
-    let testInterval = null;
-    let deepLinkInfo = null;
-
-    // --- PWA Install Banner Logic ---
-    let deferredPrompt;
-    const installBanner = document.getElementById('install-banner');
-    const installAppBtn = document.getElementById('install-app-btn');
-    const closeInstallBannerBtn = document.getElementById('close-install-banner-btn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      if (!window.matchMedia('(display-mode: standalone)').matches) {
-        showInstallBanner();
-      }
-    });
-    function showInstallBanner() {
-      installBanner.classList.add('show');
-      setTimeout(hideInstallBanner, 10000); // Auto-hide after 10 seconds
-    }
-    function hideInstallBanner() { installBanner.classList.remove('show'); }
-    closeInstallBannerBtn.addEventListener('click', hideInstallBanner);
-    installAppBtn.addEventListener('click', async () => {
-      hideInstallBanner();
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to the install prompt: ${outcome}`);
-        deferredPrompt = null;
-      }
-    });
-
-    // --- Theme Management ---
-    const applyTheme = (theme) => { body.dataset.theme = theme; localStorage.setItem('theme', theme); };
-    themeToggle.onclick = () => { applyTheme(body.dataset.theme === 'dark' ? 'light' : 'dark'); };
-
-    // --- UI & Navigation ---
-    function showSection(sectionToShow) { 
-      allSections.forEach(s => s.classList.add('hidden')); 
-      sectionToShow.classList.remove('hidden'); 
-      bottomNav.classList.toggle('hidden', sectionToShow.id !== 'student-dashboard-section'); 
-    }
-    function showLoadingSpinner(container) { container.innerHTML = `<div class="spinner"></div>`; }
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    navButtons.forEach(button => { 
-      button.addEventListener('click', () => { 
-        navButtons.forEach(btn => btn.classList.remove('active')); 
-        tabContents.forEach(content => content.classList.add('hidden')); 
-        button.classList.add('active'); 
-        document.getElementById(button.dataset.target).classList.remove('hidden'); 
-      }); 
-    });
-    function setDefaultTab() { document.getElementById('nav-tests-btn').click(); }
-    
-    // --- Core Application Logic ---
-    async function updateDashboard() { 
-      if (!currentStudent) return; 
-      studentNameSpan.textContent = currentStudent; 
-      logoutIcon.classList.remove('hidden'); 
-      setDefaultTab(); 
-      showLoadingSpinner(availableTestsContainer); 
-      showLoadingSpinner(studentResultsContainer); 
-      
-      const resultsSnapshot = await get(ref(db, `studentResults/${currentStudent}`)); 
-      studentTakenTests = resultsSnapshot.exists() ? resultsSnapshot.val() : {}; 
-      loadStudentResults(); 
-      
-      const testsRef = ref(db, 'tests'); 
-      onValue(testsRef, (snapshot) => { 
-        allTestsData = snapshot.exists() ? snapshot.val() : {}; 
-        renderAvailableTests(); 
-        attemptDeepLinkStart(); 
-      }, { onlyOnce: true }); // Use onlyOnce for performance, unless real-time test updates are needed
-    }
-
-    function renderAvailableTests(searchTerm = '') { 
-      availableTestsContainer.innerHTML = ""; 
-      let testsFound = false; 
-      Object.entries(allTestsData).forEach(([teacherId, teacherTests]) => { 
-        Object.entries(teacherTests).forEach(([testId, test]) => { 
-          const testText = `${test.name} ${test.grade} ${teacherId}`.toLowerCase(); 
-          if (searchTerm && !testText.includes(searchTerm.toLowerCase())) return; 
-          
-          testsFound = true; 
-          const isCompleted = !!studentTakenTests[testId]; 
-          const div = document.createElement('div'); 
-          div.className = `test-item ${isCompleted ? 'completed' : ''}`; 
-          const testShareLink = `${window.location.origin}${window.location.pathname}?testId=${testId}&teacherId=${teacherId}`;
-
-          div.innerHTML = `
-            <div>
-              <strong>${test.name}</strong><br>
-              <small>${test.grade} - المعلم: ${teacherId}</small>
+    <!-- ==== Student Dashboard Section ==== -->
+    <section id="student-dashboard-section" class="hidden">
+        <h1>مرحبًا بك، <span id="student-name"></span>!</h1>
+        <hr />
+        <div class="tab-content" id="tests-content">
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="ابحث عن اختبار..." />
+                <i class="fas fa-search"></i>
             </div>
-            <div style="display: flex; align-items: center;">
-              <button class="share-btn" title="نسخ رابط الاختبار"><i class="fas fa-share-alt"></i></button>
-              <button class="start-test-btn" style="background: ${isCompleted ? 'var(--warning-color)' : 'var(--accent-color)'}; color: ${isCompleted ? '#111' : '#fff'};">
-                ${isCompleted ? 'إعادة المحاولة' : 'بدء الاختبار'}
-              </button>
-            </div>`; 
-            
-          div.querySelector('.start-test-btn').onclick = () => startTest(teacherId, testId, test); 
-          const shareButton = div.querySelector('.share-btn');
-          shareButton.onclick = async (e) => {
-            e.stopPropagation(); 
-            try {
-              await navigator.clipboard.writeText(testShareLink);
-              const originalIcon = shareButton.innerHTML;
-              shareButton.innerHTML = `<i class="fas fa-check"></i>`;
-              showToast("تم نسخ الرابط بنجاح!", "success");
-              setTimeout(() => { shareButton.innerHTML = originalIcon; }, 1500);
-            } catch (err) {
-              console.error('Failed to copy text: ', err);
-              showCustomAlert('فشل نسخ الرابط. يرجى النسخ يدوياً: ' + testShareLink, "error");
-            }
-          };
-          availableTestsContainer.appendChild(div); 
-        }); 
-      }); 
-      if (!testsFound) { availableTestsContainer.innerHTML = "<p>لا توجد اختبارات مطابقة.</p>"; } 
-    }
+            <h2>الاختبارات المتاحة</h2>
+            <div id="available-tests-container"></div>
+        </div>
+        <div class="tab-content hidden" id="results-content">
+            <h2>نتائجي السابقة</h2>
+            <div id="student-results-container"></div>
+        </div>
+    </section>
 
-    function loadStudentResults() { 
-      studentResultsContainer.innerHTML = ""; 
-      const resultsArray = Object.values(studentTakenTests).sort((a, b) => b.timestamp - a.timestamp); 
-      if (resultsArray.length === 0) { studentResultsContainer.innerHTML = "<p>لم تحل أي اختبار بعد.</p>"; return; } 
-      resultsArray.forEach(result => { 
-        const date = new Date(result.timestamp).toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' }); 
-        const div = document.createElement("div"); 
-        div.style = "background: var(--item-bg); padding: 10px; border-radius: 8px; margin-bottom: 8px; border-right: 3px solid var(--accent-color)"; 
-        div.innerHTML = `<strong>${result.testName}</strong> - الدرجة: <strong>${result.score}</strong><br><small>${date}</small>`; 
-        studentResultsContainer.appendChild(div); 
-      }); 
-    }
+    <!-- ==== Take Test Section ==== -->
+    <section id="take-test-section" class="hidden">
+        <h2 id="current-test-title"></h2>
+        <div id="timer" class="timer-display"></div>
+        <div id="timer-bar" class="timer-bar"><div id="timer-progress" class="timer-progress"></div></div>
+        <div id="questions-display"></div>
+        <button id="submit-test-btn">تسليم الاختبار</button>
+        <button id="cancel-test-btn" class="secondary">إلغاء الاختبار</button>
+    </section>
 
-    async function saveUser(name, password) { 
-      const userRef = ref(db, `students/${name}`); 
-      if ((await get(userRef)).exists()) { showCustomAlert("اسم المستخدم هذا موجود بالفعل.", "error"); return false; } 
-      await set(userRef, { password: password }); 
-      return true; 
-    }
+    <!-- ==== Test Result Section ==== -->
+    <section id="test-result-section" class="hidden">
+        <h1>نتيجتك</h1>
+        <h2 id="final-score"></h2>
+        <div id="retake-message" class="retake-message hidden"></div>
+        <div id="feedback-message"></div>
+        <button id="back-to-dashboard-btn">العودة للوحة التحكم</button>
+    </section>
+</div>
 
-    async function verifyUser(name, password) { 
-      const snapshot = await get(ref(db, `students/${name}`)); 
-      return snapshot.exists() && snapshot.val().password === password; 
-    }
-    
-    function startTest(teacherId, testId, testData) {
-      if (studentTakenTests[testId] && testData.allowRetake !== true) {
-        showCustomAlert("تنبيه: لقد أكملت هذا الاختبار مسبقًا. هذه محاولة للمراجعة فقط، ولن يتم تحديث نتيجتك الأصلية.", "info");
-      }
-      currentTest = { ...testData, id: testId, teacherId: teacherId };
-      currentTestTitle.textContent = currentTest.name;
-      let currentTestDuration = currentTest.duration * 60;
-      
-      questionsDisplay.innerHTML = "";
-      if (currentTest.questions && Array.isArray(currentTest.questions)) {
-        currentTest.questions.forEach((q, qIndex) => {
-          const questionDiv = document.createElement("div");
-          questionDiv.style.marginBottom = "25px";
-          questionDiv.innerHTML = `<h4>السؤال ${qIndex + 1}: ${q.question}</h4>${q.image ? `<img src="${q.image}" alt="صورة السؤال" style="max-width: 100%; border-radius: 10px; margin-top: 10px; margin-bottom: 15px;">` : ''}`;
-          const optionsDiv = document.createElement("div");
-          optionsDiv.className = "question-options";
-          q.options.forEach((option, oIndex) => {
-            optionsDiv.innerHTML += `<label><input type="radio" name="question-${qIndex}" value="${oIndex + 1}" /><span>${option}</span></label>`;
-          });
-          questionDiv.appendChild(optionsDiv);
-          questionsDisplay.appendChild(questionDiv);
-        });
-      }
-      
-      if (testInterval) clearInterval(testInterval);
-      timerDisplay.textContent = formatTime(currentTestDuration);
-      testInterval = setInterval(() => {
-        currentTestDuration--;
-        timerDisplay.textContent = formatTime(currentTestDuration);
-        if (currentTestDuration < 0) {
-          clearInterval(testInterval);
-          submitTest(true);
-        }
-      }, 1000);
-      showSection(takeTestSection);
-    }
-    
-    async function submitTest(timeUp = false) { 
-      clearInterval(testInterval); 
-      if (timeUp) showCustomAlert("انتهى وقت الاختبار!", "warning"); 
-      
-      let answers = {}; 
-      currentTest.questions.forEach((_, qIndex) => { 
-        const checked = document.querySelector(`input[name="question-${qIndex}"]:checked`); 
-        if (checked) answers[qIndex] = parseInt(checked.value); 
-      }); 
-      
-      let score = 0; 
-      currentTest.questions.forEach((q, qIndex) => { if (answers[qIndex] === q.correct) score++; }); 
-      
-      const percentage = (score / currentTest.questions.length) * 100; 
-      let feedbackText, feedbackClass; 
-      if (percentage === 100) { feedbackText = "مذهل! لقد حصلت على الدرجة الكاملة! 🤩"; feedbackClass = "success"; } 
-      else if (percentage >= 80) { feedbackText = "عمل رائع! نتيجتك ممتازة! ✨"; feedbackClass = "good"; } 
-      else if (percentage >= 50) { feedbackText = "نتيجة جيدة! استمر بالتقدم! 👍"; feedbackClass = "average"; } 
-      else { feedbackText = "لا تقلق! كل اختبار فرصة للتعلم. 💪"; feedbackClass = "poor"; } 
-      
-      retakeMessage.classList.add('hidden'); 
-      if (!studentTakenTests[currentTest.id]) { 
-        const resultData = { testName: currentTest.name, teacherName: currentTest.teacherId, score: `${score}/${currentTest.questions.length}`, timestamp: serverTimestamp() }; 
-        await set(ref(db, `studentResults/${currentStudent}/${currentTest.id}`), resultData); 
-        await set(ref(db, `results/${currentTest.teacherId}/${currentTest.id}/${currentStudent}`), resultData.score); 
-        studentTakenTests[currentTest.id] = resultData; 
-      } else { 
-        retakeMessage.textContent = "هذه محاولة للمراجعة. تم الاحتفاظ بنتيجتك الأولى."; 
-        retakeMessage.classList.remove('hidden'); 
-      } 
-      
-      finalScoreDisplay.textContent = `درجتك: ${score} من ${currentTest.questions.length}`; 
-      feedbackMessage.className = ``; 
-      feedbackMessage.classList.add(feedbackClass); 
-      feedbackMessage.textContent = feedbackText; 
-      showSection(testResultSection); 
-    }
+<!-- ==== Bottom Navigation Bar ==== -->
+<nav class="bottom-nav hidden" id="bottom-nav">
+    <button id="nav-tests-btn" class="nav-btn active" data-target="tests-content"><i class="fas fa-book-open"></i><span>الاختبارات</span></button>
+    <button id="nav-results-btn" class="nav-btn" data-target="results-content"><i class="fas fa-poll-h"></i><span>نتائجي</span></button>
+</nav>
 
-    function cancelTest() { 
-      if (confirm("هل أنت متأكد من إلغاء الاختبار؟ سيتم فقدان تقدمك.")) { 
-        clearInterval(testInterval); 
-        showSection(studentDashboardSection); 
-        updateDashboard(); 
-      } 
-    } 
+<script type="module">
+/* -------------------------------------------------
+   1️⃣ Firebase Initialization
+   ------------------------------------------------- */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+import { getDatabase, ref, set, onValue, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js";
 
-    async function attemptDeepLinkStart() {
-      if (deepLinkInfo && currentStudent && Object.keys(allTestsData).length > 0) {
-        const { testId, teacherId } = deepLinkInfo;
-        const testToStart = allTestsData[teacherId]?.[testId];
-        if (testToStart) {
-          if (studentDashboardSection.classList.contains('hidden')) showSection(studentDashboardSection);
-          startTest(teacherId, testId, testToStart);
-        } else {
-          showCustomAlert("عذراً، الاختبار المحدد بالرابط غير موجود أو المعلم غير صحيح.", "error");
-        }
-        deepLinkInfo = null;
-      }
-    }
+const firebaseConfig = {
+    apiKey: "AIzaSyAjE-2q6PONBkCin9ZN22gDp9Q8pAH9ZW8",
+    authDomain: "story-97cf7.firebaseapp.com",
+    databaseURL: "https://story-97cf7-default-rtdb.firebaseio.com",
+    projectId: "story-97cf7",
+    storageBucket: "story-97cf7.firebasestorage.app",
+    messagingSenderId: "742801388214",
+    appId: "1:742801388214:web:32a305a8057b0582c5ec17"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-    // --- Event Listeners ---
-    document.getElementById('login-btn').onclick = async () => { 
-      const name = document.getElementById("login-name").value.trim(); 
-      const password = document.getElementById("login-password").value.trim(); 
-      if (!name || !password) return showCustomAlert("الرجاء تعبئة الاسم وكلمة المرور.", "warning");
-      if (await verifyUser(name, password)) { 
-        currentStudent = name; 
-        localStorage.setItem("loggedInStudent", currentStudent); 
-        showSection(studentDashboardSection); 
-        await updateDashboard(); 
-      } else { 
-        showCustomAlert("اسم المستخدم أو كلمة المرور غير صحيحة.", "error"); 
-      } 
-    };
+/* -------------------------------------------------
+   2️⃣ App State Variables
+   ------------------------------------------------- */
+let currentStudent = null;
+let studentTakenTests = {};
+let allTestsData = {};
+let currentTest = null;
+let testInterval = null;
+let deepLinkInfo = null;
+let totalTestSeconds = 0;
+let remainingSeconds = 0;
 
-    document.getElementById('register-btn').onclick = async () => { 
-      const name = document.getElementById("register-name").value.trim(); 
-      const password = document.getElementById("register-password").value.trim(); 
-      if(!name || !password) return showCustomAlert("الرجاء تعبئة كل الحقول", "warning");
-      if (await saveUser(name, password)) { 
-        showCustomAlert("تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.", "success");
-        document.getElementById("login-name").value = name;
-        document.getElementById("login-password").value = "";
-        showSection(document.getElementById('login-section')); 
-      } 
-    };
+/* -------------------------------------------------
+   3️⃣ DOM Element References
+   ------------------------------------------------- */
+const allSections = document.querySelectorAll('section');
+const registerSection = document.getElementById('register-section');
+const loginSection = document.getElementById('login-section');
+const studentDashboard = document.getElementById('student-dashboard-section');
+const takeTestSection = document.getElementById('take-test-section');
+const testResultSection = document.getElementById('test-result-section');
+const studentNameSpan = document.getElementById('student-name');
+const logoutIcon = document.getElementById('logout-icon');
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const availableTestsContainer = document.getElementById('available-tests-container');
+const studentResultsContainer = document.getElementById('student-results-container');
+const searchBar = document.getElementById('search-bar');
+const timerDisplay = document.getElementById('timer');
+const timerProgress = document.getElementById('timer-progress');
+const currentTestTitle = document.getElementById('current-test-title');
+const questionsDisplay = document.getElementById('questions-display');
+const finalScoreDisplay = document.getElementById('final-score');
+const retakeMessage = document.getElementById('retake-message');
+const feedbackMessage = document.getElementById('feedback-message');
+const bottomNav = document.getElementById('bottom-nav');
+const navButtons = document.querySelectorAll('.nav-btn');
 
-    logoutIcon.onclick = () => { 
-      if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) {
-        currentStudent = null; 
-        localStorage.removeItem("loggedInStudent"); 
-        showSection(document.getElementById('login-section')); 
-        logoutIcon.classList.add('hidden'); 
-      } 
-    };
+/* -------------------------------------------------
+   4️⃣ UI Functions (Section Switching, Theme, Alerts, Toasts)
+   ------------------------------------------------- */
+function showSection(section){
+    allSections.forEach(s=>s.classList.add('hidden'));
+    section.classList.remove('hidden');
+    bottomNav.classList.toggle('hidden', section.id !== 'student-dashboard-section');
+    document.querySelector('.container').scrollTop = 0; // Scroll to top on section change
+}
 
-    searchBar.addEventListener('input', (e) => renderAvailableTests(e.target.value));
-    document.getElementById('submit-test-btn').onclick = () => submitTest(false);
-    document.getElementById('cancel-test-btn').onclick = cancelTest;
-    document.getElementById('back-to-dashboard-btn').onclick = () => { showSection(studentDashboardSection); updateDashboard(); };
-    document.getElementById('to-login').onclick = (e) => { e.preventDefault(); showSection(document.getElementById('login-section')); };
-    document.getElementById('to-register').onclick = (e) => { e.preventDefault(); showSection(document.getElementById('register-section')); };
-    
-    // --- Custom Alert & Toast Functions ---
-    const customAlertContainer = document.getElementById('custom-alert-container');
-    const customAlert = document.getElementById('custom-alert');
-    const customAlertIcon = document.getElementById('custom-alert-icon');
-    const customAlertMessage = document.getElementById('custom-alert-message');
-    const customAlertCloseBtn = document.getElementById('custom-alert-close-btn');
-    const toastContainer = document.getElementById('toast-container');
+function applyTheme(theme){
+    body.dataset.theme = theme;
+    localStorage.setItem('theme',theme);
+}
+themeToggle.onclick = () => applyTheme(body.dataset.theme === 'dark' ? 'light' : 'dark');
 
-    function hideCustomAlert() {
-      customAlertContainer.classList.remove('show');
-    }
-    customAlertCloseBtn.onclick = hideCustomAlert;
-    customAlertContainer.onclick = (e) => { if (e.target === customAlertContainer) hideCustomAlert(); };
+const customAlertContainer = document.getElementById('custom-alert-container');
+const customAlert = document.getElementById('custom-alert');
+const customAlertIcon = document.getElementById('custom-alert-icon');
+const customAlertMessage = document.getElementById('custom-alert-message');
+const customAlertCloseBtn = document.getElementById('custom-alert-close-btn');
 
-    function showCustomAlert(message, type = 'info') {
-      customAlertMessage.textContent = message;
-      customAlert.className = 'custom-alert ' + type;
-      const icons = { success: 'fa-check-circle', error: 'fa-times-circle', warning: 'fa-exclamation-triangle', info: 'fa-info-circle' };
-      customAlertIcon.className = `fas ${icons[type] || icons.info}`;
-      customAlertContainer.classList.add('show');
-    }
+function showCustomAlert(message,type='info'){
+    customAlertMessage.textContent = message;
+    customAlert.className = `custom-alert ${type}`;
+    const icons = {success:'fa-check-circle', error:'fa-times-circle', warning:'fa-exclamation-triangle', info:'fa-info-circle'};
+    customAlertIcon.className = `fas ${icons[type]||icons.info}`;
+    customAlertContainer.classList.add('show');
+}
+function hideCustomAlert(){ customAlertContainer.classList.remove('show'); }
+customAlertCloseBtn.onclick = hideCustomAlert;
+customAlertContainer.onclick = (e)=>{ if(e.target===customAlertContainer) hideCustomAlert(); };
 
-    function showToast(message, type = 'info', duration = 3000) {
-      const toast = document.createElement('div');
-      toast.className = `toast ${type}`;
-      toast.textContent = message;
-      toastContainer.appendChild(toast);
-      setTimeout(() => toast.classList.add('show'), 10);
-      setTimeout(() => {
+const toastContainer = document.getElementById('toast-container');
+function showToast(message,type='info',duration=3000){
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    toastContainer.appendChild(toast);
+    setTimeout(()=>toast.classList.add('show'),10);
+    setTimeout(()=>{
         toast.classList.remove('show');
-        toast.addEventListener('transitionend', () => toast.remove());
-      }, duration);
+        toast.addEventListener('transitionend',()=>toast.remove());
+    },duration);
+}
+
+function showLoading(container){
+    container.innerHTML = '<div class="spinner"></div>';
+}
+
+/* -------------------------------------------------
+   5️⃣ Dashboard & Test Rendering Logic
+   ------------------------------------------------- */
+async function loadDashboard(){
+    if(!currentStudent) return;
+    studentNameSpan.textContent = currentStudent;
+    logoutIcon.classList.remove('hidden');
+    setDefaultTab();
+    showLoading(availableTestsContainer);
+    showLoading(studentResultsContainer);
+
+    const resultsSnap = await get(ref(db, `studentResults/${currentStudent}`));
+    studentTakenTests = resultsSnap.exists() ? resultsSnap.val() : {};
+    renderStudentResults();
+
+    const testsRef = ref(db, 'tests');
+    onValue(testsRef, snap=>{
+        allTestsData = snap.exists()? snap.val() : {};
+        renderAvailableTests();
+        attemptDeepLinkStart();
+    },{onlyOnce:true});
+}
+
+function renderAvailableTests(filter=''){
+    availableTestsContainer.innerHTML = '';
+    let anyFound = false;
+
+    Object.entries(allTestsData).forEach(([teacherId, teacherTests])=>{
+        Object.entries(teacherTests).forEach(([testId, test])=>{
+            const searchStr = `${test.name} ${test.grade} ${teacherId}`.toLowerCase();
+            if(filter && !searchStr.includes(filter.toLowerCase())) return;
+
+            anyFound = true;
+            const completed = !!studentTakenTests[testId];
+            const card = document.createElement('div');
+            card.className = `test-item ${completed ? 'completed' : ''}`;
+
+            card.innerHTML = `
+                <div class="test-info">
+                    <span class="test-emoji">📚</span>
+                    <div class="test-body">
+                        <strong>${test.name}</strong><br>
+                        <small>${test.grade} - المعلم: ${teacherId}</small>
+                    </div>
+                </div>
+                <div class="test-actions">
+                    <button class="share-btn" title="نسخ رابط الاختبار"><i class="fas fa-share-alt"></i></button>
+                    <button class="start-test-btn ${completed ? 'completed' : ''}">
+                        ${completed ? 'إعادة المحاولة' : 'بدء الاختبار'}
+                    </button>
+                </div>
+            `;
+
+            card.querySelector('.start-test-btn').onclick = () => startTest(teacherId, testId, test);
+
+            const shareBtn = card.querySelector('.share-btn');
+            const shareLink = `${window.location.origin}${window.location.pathname}?testId=${testId}&teacherId=${teacherId}`;
+            shareBtn.onclick = async (e)=>{
+                e.stopPropagation();
+                try{
+                    await navigator.clipboard.writeText(shareLink);
+                    showToast('تم نسخ الرابط بنجاح!', 'success');
+                }catch(err){
+                    showCustomAlert('فشل نسخ الرابط. يمكنك نسخه يدوياً.','error');
+                }
+            };
+            availableTestsContainer.appendChild(card);
+        });
+    });
+
+    if(!anyFound){
+        availableTestsContainer.innerHTML = '<p style="text-align:center; padding: 20px 0;">لا توجد اختبارات متاحة أو مطابقة للبحث.</p>';
     }
-    function formatTime(seconds) { 
-      const minutes = Math.floor(seconds / 60); 
-      const remainingSeconds = seconds % 60; 
-      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`; 
+}
+
+function renderStudentResults(){
+    studentResultsContainer.innerHTML = '';
+    const results = Object.values(studentTakenTests).sort((a,b)=>b.timestamp - a.timestamp);
+    if(results.length===0){
+        studentResultsContainer.innerHTML = '<p style="text-align:center; padding: 20px 0;">لم تقم بإجراء أي اختبار بعد.</p>';
+        return;
+    }
+    results.forEach(r=>{
+        const d = new Date(r.timestamp).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});
+        const div = document.createElement('div');
+        div.className = 'test-item';
+        div.innerHTML = `
+            <div class="test-body">
+                <strong>${r.testName}</strong><br>
+                <small>الدرجة: <strong>${r.score}</strong> - بتاريخ: ${d}</small>
+            </div>
+        `;
+        studentResultsContainer.appendChild(div);
+    });
+}
+
+/* -------------------------------------------------
+   6️⃣ Test Taking & Submission Logic
+   ------------------------------------------------- */
+function startTest(teacherId,testId,testData){
+    if(studentTakenTests[testId] && testData.allowRetake!==true){
+        showCustomAlert('لقد أكملت هذا الاختبار مسبقًا ولن يتم تسجيل نتيجتك الجديدة. هذه المحاولة للمراجعة فقط.','info');
     }
 
-    // --- PWA Service Worker ---
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js')
-          .then(reg => console.log('ServiceWorker registration successful:', reg.scope))
-          .catch(err => console.log('ServiceWorker registration failed:', err));
-      });
-    }
+    currentTest = {...testData, id:testId, teacherId};
+    currentTestTitle.textContent = currentTest.name;
+    totalTestSeconds = currentTest.duration * 60;
+    remainingSeconds = totalTestSeconds;
 
-    // --- Initial Load Logic ---
-    window.onload = async () => { 
-      applyTheme(localStorage.getItem('theme') || 'dark');
-      
-      const urlParams = new URLSearchParams(window.location.search);
-      const testIdParam = urlParams.get('testId');
-      const teacherIdParam = urlParams.get('teacherId');
-      if (testIdParam && teacherIdParam) {
-        deepLinkInfo = { testId: testIdParam, teacherId: teacherIdParam };
-        history.replaceState({}, document.title, window.location.pathname);
-      }
+    questionsDisplay.innerHTML = '';
+    currentTest.questions?.forEach((q,qIdx)=>{
+        const qDiv = document.createElement('div');
+        qDiv.style.marginBottom='25px';
+        qDiv.innerHTML = `
+            <h4>السؤال ${qIdx+1}: ${q.question}</h4>
+            ${q.image ? `<img src="${q.image}" alt="صورة السؤال" style="max-width:100%;border-radius:10px;margin:10px 0;">` : ''}
+            <div class="question-options">
+                ${q.options.map((opt,optIdx)=>`
+                    <label>
+                        <input type="radio" name="question-${qIdx}" value="${optIdx+1}" />
+                        <span>${opt}</span>
+                    </label>`).join('')}
+            </div>`;
+        questionsDisplay.appendChild(qDiv);
+    });
 
-      const savedStudent = localStorage.getItem("loggedInStudent"); 
-      if (savedStudent) { 
-        currentStudent = savedStudent; 
-        showSection(studentDashboardSection); 
-        await updateDashboard(); 
-      } else {
-        // If there's a deep link, show login first instead of register
-        showSection(deepLinkInfo ? document.getElementById('login-section') : document.getElementById('register-section'));
-      } 
+    timerDisplay.textContent = formatTime(remainingSeconds);
+    timerProgress.style.width = '100%';
+    if(testInterval) clearInterval(testInterval);
+    testInterval = setInterval(()=>{
+        remainingSeconds--;
+        timerDisplay.textContent = formatTime(remainingSeconds);
+        const percent = (remainingSeconds/totalTestSeconds)*100;
+        timerProgress.style.width = percent + '%';
+        if(remainingSeconds<=0){
+            clearInterval(testInterval);
+            submitTest(true);
+        }
+    },1000);
+
+    showSection(takeTestSection);
+}
+
+async function submitTest(timeUp=false){
+    clearInterval(testInterval);
+    if(timeUp) showCustomAlert('انتهى وقت الاختبار! تم تسليم إجاباتك.','warning');
+
+    const answers = {};
+    currentTest.questions.forEach((_,qIdx)=>{
+        const checked = document.querySelector(`input[name="question-${qIdx}"]:checked`);
+        if(checked) answers[qIdx] = parseInt(checked.value);
+    });
+
+    let score = 0;
+    currentTest.questions.forEach((q,qIdx)=>{
+        if(answers[qIdx]===q.correct) score++;
+    });
+    const percent = (score/currentTest.questions.length)*100;
+
+    const feedbackMap = {
+        success:{text:'🥳 مبروك! حصلت على الدرجة الكاملة!',cls:'success'},
+        good:{text:'😊 عمل رائع! نتيجتك ممتازة!',cls:'good'},
+        average:{text:'🙂 نتيجة جيدة! استمر بالتقدم!',cls:'average'},
+        poor:{text:'🙁 لا تقلق! كل اختبار فرصة للتعلم.',cls:'poor'}
     };
-  </script>
+    let fb = (percent===100) ? feedbackMap.success : (percent>=80) ? feedbackMap.good : (percent>=50) ? feedbackMap.average : feedbackMap.poor;
+
+    retakeMessage.classList.add('hidden');
+    if(!studentTakenTests[currentTest.id] || currentTest.allowRetake === true){
+        const resultObj = {
+            testName:currentTest.name,
+            teacherName:currentTest.teacherId,
+            score:`${score}/${currentTest.questions.length}`,
+            timestamp:serverTimestamp()
+        };
+        await set(ref(db, `studentResults/${currentStudent}/${currentTest.id}`), resultObj);
+        await set(ref(db, `results/${currentTest.teacherId}/${currentTest.id}/${currentStudent}`), resultObj.score);
+        studentTakenTests[currentTest.id] = resultObj;
+    }else{
+        retakeMessage.textContent = 'هذه محاولة للمراجعة. تم الاحتفاظ بنتيجتك الأولى.';
+        retakeMessage.classList.remove('hidden');
+    }
+
+    finalScoreDisplay.textContent = `درجتك: ${score} من ${currentTest.questions.length}`;
+    feedbackMessage.className = ``;
+    feedbackMessage.classList.add(fb.cls);
+    feedbackMessage.textContent = fb.text;
+    showSection(testResultSection);
+}
+
+function cancelTest(){
+    if(confirm('هل أنت متأكد من إلغاء الاختبار؟ سيتم فقدان التقدم الحالي.')){
+        clearInterval(testInterval);
+        showSection(studentDashboard);
+        loadDashboard();
+    }
+}
+
+function formatTime(sec){
+    const m = Math.floor(sec/60);
+    const s = sec%60;
+    return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+}
+
+/* -------------------------------------------------
+   7️⃣ User Authentication & Navigation
+   ------------------------------------------------- */
+async function registerUser(){
+    const name = document.getElementById('register-name').value.trim();
+    const pass = document.getElementById('register-password').value.trim();
+    if(!name||!pass) return showCustomAlert('الرجاء ملء جميع الحقول','warning');
+    const userRef = ref(db, `students/${name}`);
+    if((await get(userRef)).exists()){
+        return showCustomAlert('اسم المستخدم موجود مسبقًا. اختر اسمًا آخر.','error');
+    }
+    await set(userRef,{password:pass});
+    showCustomAlert('تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.', 'success');
+    document.getElementById('login-name').value = name;
+    document.getElementById('login-password').value = '';
+    showSection(loginSection);
+}
+
+async function loginUser(){
+    const name = document.getElementById('login-name').value.trim();
+    const pass = document.getElementById('login-password').value.trim();
+    if(!name||!pass) return showCustomAlert('الرجاء ملء جميع الحقول','warning');
+    const snap = await get(ref(db, `students/${name}`));
+    if(!snap.exists() || snap.val().password!==pass){
+        return showCustomAlert('اسم المستخدم أو كلمة المرور غير صحيحة.','error');
+    }
+    currentStudent = name;
+    localStorage.setItem('loggedInStudent',currentStudent);
+    showSection(studentDashboard);
+    loadDashboard();
+}
+
+logoutIcon.onclick = ()=>{
+    if(confirm('هل أنت متأكد من رغبتك في تسجيل الخروج؟')){
+        currentStudent = null;
+        localStorage.removeItem('loggedInStudent');
+        showSection(loginSection);
+        logoutIcon.classList.add('hidden');
+    }
+};
+
+navButtons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        navButtons.forEach(b=>b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c=>c.classList.add('hidden'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.target).classList.remove('hidden');
+    });
+});
+function setDefaultTab(){ document.getElementById('nav-tests-btn').click(); }
+
+/* -------------------------------------------------
+   8️⃣ PWA & Deep Linking
+   ------------------------------------------------- */
+let deferredPrompt;
+const installBanner = document.getElementById('install-banner');
+const installBtn = document.getElementById('install-app-btn');
+const closeBannerBtn = document.getElementById('close-install-banner-btn');
+
+window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();
+    deferredPrompt = e;
+    if(!window.matchMedia('(display-mode: standalone)').matches){
+        installBanner.classList.add('show');
+        setTimeout(()=>installBanner.classList.remove('show'), 5000); // MODIFIED: 5 seconds duration
+    }
+});
+installBtn.onclick = async ()=>{
+    installBanner.classList.remove('show');
+    if(deferredPrompt){
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt=null;
+    }
+};
+closeBannerBtn.onclick = ()=>installBanner.classList.remove('show');
+
+function setupDeepLink(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const testIdParam = urlParams.get('testId');
+    const teacherIdParam = urlParams.get('teacherId');
+    if(testIdParam && teacherIdParam){
+        deepLinkInfo = {testId:testIdParam, teacherId:teacherIdParam};
+        history.replaceState({}, document.title, window.location.pathname);
+    }
+}
+async function attemptDeepLinkStart(){
+    if(deepLinkInfo && currentStudent && Object.keys(allTestsData).length){
+        const {testId, teacherId} = deepLinkInfo;
+        const test = allTestsData[teacherId]?.[testId];
+        if(test){
+            if(studentDashboard.classList.contains('hidden')) showSection(studentDashboard);
+            startTest(teacherId,testId,test);
+        }else{
+            showCustomAlert('الاختبار المطلوب عبر الرابط غير موجود أو غير صحيح.','error');
+        }
+        deepLinkInfo=null;
+    }
+}
+
+/* -------------------------------------------------
+   9️⃣ App Initialization
+   ------------------------------------------------- */
+// Event Listeners
+document.getElementById('register-btn').onclick = registerUser;
+document.getElementById('login-btn').onclick = loginUser;
+document.getElementById('to-login').onclick = e=>{ e.preventDefault(); showSection(loginSection); };
+document.getElementById('to-register').onclick = e=>{ e.preventDefault(); showSection(registerSection); };
+document.getElementById('back-to-dashboard-btn').onclick = ()=>{ showSection(studentDashboard); loadDashboard(); };
+document.getElementById('cancel-test-btn').onclick = cancelTest;
+document.getElementById('submit-test-btn').onclick = ()=>submitTest(false);
+searchBar.addEventListener('input', e=>renderAvailableTests(e.target.value));
+
+// Initial Load
+window.onload = async ()=>{
+    applyTheme(localStorage.getItem('theme')||'dark');
+    setupDeepLink();
+    
+    if(localStorage.getItem('loggedInStudent')){
+        currentStudent = localStorage.getItem('loggedInStudent');
+        showSection(studentDashboard);
+        await loadDashboard();
+    }else{
+        showSection(deepLinkInfo ? loginSection : registerSection);
+    }
+};
+
+// Service Worker Registration
+if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>{
+        navigator.serviceWorker.register('./service-worker.js')
+        .then(reg=>console.log('Service Worker registered.', reg.scope))
+        .catch(err=>console.error('Service Worker registration failed.', err));
+    });
+}
+</script>
 </body>
 </html>
